@@ -1,0 +1,776 @@
+/* ==========================================================================
+   AXPACK — SEÇÕES DA LANDING PAGE
+   Ordem: topbar · header · hero · soluções · a empresa · galeria ·
+          FAQ · contato · rodapé
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   Itens de grid têm min-width:auto por padrão, o que impede a coluna de
+   encolher abaixo do min-content do conteúdo. Em telas estreitas isso estoura
+   o container — sobretudo nos blocos com .ph, cuja aspect-ratio deriva largura
+   a partir da altura. min-width:0 devolve o controle ao track.
+   -------------------------------------------------------------------------- */
+
+.hero__grid > *,
+.solucoes__lista > *,
+.diferenciais__grid > *,
+.galeria__grid > *,
+.contato__grid > *,
+.rodape__topo > * { min-width: 0; }
+
+
+/* ==========================================================================
+   TOPBAR — barra utilitária
+   ========================================================================== */
+
+.topbar {
+  position: relative;
+  z-index: calc(var(--z-header) + 1);
+  background: var(--ax-navy-950);
+  color: var(--text-inverse-muted);
+  font-size: var(--fs-xs);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.topbar__interno {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  min-height: 42px;
+  padding-block: var(--sp-2);
+}
+
+.topbar__contatos {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+}
+
+.topbar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--text-inverse-muted);
+  white-space: nowrap;
+}
+.topbar__item:hover { color: var(--n-0); }
+.topbar__item svg { width: 14px; height: 14px; flex: none; color: var(--ax-blue-300); }
+
+.topbar__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--text-inverse-soft);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.topbar__tag strong { color: var(--ax-blue-300); font-weight: var(--fw-semibold); }
+
+@media (max-width: 900px) {
+  /* mantém apenas o telefone; o resto vive no menu e no rodapé */
+  .topbar__tag,
+  .topbar__item--email,
+  .topbar__item--local { display: none; }
+  .topbar__interno { justify-content: center; }
+}
+
+
+/* ==========================================================================
+   CABEÇALHO
+   Sem menu: apenas a marca e duas ações. Transparente sobre a hero e, ao
+   rolar, ganha um fundo NAVY translúcido — nunca branco.
+
+   Por que navy e não transparente puro: o header é sticky e a maior parte da
+   página tem fundo claro. Texto branco sobre branco sumiria. O navy mantém a
+   legibilidade e o tom premium sem a barra branca.
+   ========================================================================== */
+
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--dur-base) var(--ease),
+              border-color var(--dur-base) var(--ease),
+              box-shadow var(--dur-base) var(--ease);
+}
+
+.cabecalho__interno {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  min-height: 84px;
+  transition: min-height var(--dur-base) var(--ease);
+}
+
+/* --- estado rolado --- */
+.cabecalho.compacto {
+  background: rgba(4, 20, 42, 0.86);
+  backdrop-filter: saturate(150%) blur(14px);
+  -webkit-backdrop-filter: saturate(150%) blur(14px);
+  border-bottom-color: rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 30px rgba(2, 11, 24, 0.28);
+}
+.cabecalho.compacto .cabecalho__interno { min-height: 70px; }
+
+/* --- marca ---
+   Só a versão negativa: o fundo do header é escuro em todos os estados. */
+.marca { display: block; flex: none; }
+.marca img {
+  height: clamp(32px, 2.8vw, 42px);
+  width: auto;
+  transition: height var(--dur-base) var(--ease);
+}
+.cabecalho.compacto .marca img { height: clamp(28px, 2.4vw, 36px); }
+
+/* --- ações --- */
+.cabecalho__acoes {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.cabecalho .btn--header {
+  padding: var(--sp-3) var(--sp-6);
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .cabecalho__interno { min-height: 72px; gap: var(--sp-4); }
+  .cabecalho .btn--header { padding: var(--sp-3) var(--sp-4); }
+  /* no mobile o WhatsApp vira só o ícone — o rótulo não cabe ao lado do CTA */
+  .cabecalho .btn--whats .btn__rotulo { display: none; }
+}
+
+/* Rótulo curto do CTA — só aparece quando o longo não cabe. */
+.btn__curto { display: none; }
+
+@media (max-width: 480px) {
+  /* Sem o overflow-x:hidden do body (que quebrava o sticky), um header que
+     não cabe passa a gerar rolagem horizontal de verdade. Aqui a marca
+     encolhe, o rótulo do CTA encurta e o WhatsApp fica só com o ícone. */
+  .cabecalho__interno { gap: var(--sp-3); }
+  .marca img,
+  .cabecalho.compacto .marca img { height: 28px; }
+  .cabecalho .btn--header { padding: var(--sp-3); font-size: var(--fs-xs); }
+  .btn__longo { display: none; }
+  .btn__curto { display: inline; }
+}
+
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+
+/* A hero é construída em 4 camadas empilhadas:
+     -3  malha técnica
+     -2  profundidade azul tonal + A luz verde (uma só, concentrada)
+     -1  o feixe infravermelho animado
+      0  conteúdo
+   Para migrar para vídeo full-bleed depois: o <video> entra como camada -2
+   com um overlay escuro, e as camadas -3/-1 continuam funcionando por cima. */
+
+.hero {
+  position: relative;
+  /* puxa o conteúdo para trás do header sticky transparente */
+  margin-top: -84px;
+  padding-top: calc(84px + clamp(2.5rem, 5vw, 5rem));
+  padding-bottom: clamp(2.5rem, 5vw, 5rem);
+  background: var(--grad-dark);
+  color: var(--n-0);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* camada -3: malha técnica */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  mask-image: radial-gradient(ellipse 100% 78% at 50% 34%, #000 30%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 78% at 50% 34%, #000 30%, transparent 78%);
+}
+
+/* camada -2: profundidade azul tonal + a única luz verde da seção.
+   A luz fica atrás da coluna de mídia, parcialmente ocluída por ela — assim
+   lê como fonte de luz vazando por trás, e não como uma mancha colorida. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    /* profundidade azul — mais contida, para o fundo não lavar */
+    radial-gradient(46rem 28rem at 6% 0%,    rgba(32, 96, 208, 0.34), transparent 60%),
+    radial-gradient(44rem 30rem at 98% 100%, rgba(3, 15, 32, 0.95),   transparent 66%),
+    /* A LUZ: ancorada NA BORDA do quadro, com a maior parte sangrando para
+       fora. Uma fonte de luz cortada pela moldura sempre lê como luz; solta
+       no meio do fundo, lê como mancha — foi o que aconteceu nas tentativas
+       anteriores, ainda mais porque o painel de mídia é translúcido e não
+       oclui nada enquanto for placeholder. */
+    radial-gradient(10rem 15rem at 100% 26%, var(--luz-verde), transparent 72%),
+    radial-gradient(26rem 30rem at 104% 30%, rgba(143, 229, 0, 0.07), transparent 70%);
+  pointer-events: none;
+}
+
+/* No mobile a hero fica alta e estreita: a luz na altura de 26% cairia
+   justamente sobre o parágrafo. Aqui ela sobe para o canto, longe do texto. */
+@media (max-width: 767px) {
+  .hero::after {
+    background:
+      radial-gradient(34rem 22rem at 4% 0%,    rgba(32, 96, 208, 0.32), transparent 62%),
+      radial-gradient(30rem 26rem at 98% 100%, rgba(3, 15, 32, 0.95),   transparent 66%),
+      radial-gradient(6rem 8rem  at 100% 5%,   var(--luz-verde),        transparent 72%),
+      radial-gradient(15rem 16rem at 106% 6%,  rgba(143, 229, 0, 0.06), transparent 70%);
+  }
+}
+
+/* camada -1: o feixe infravermelho.
+   O AX Infra aquece por radiação — o feixe traduz isso visualmente.
+   Duas bandas em velocidades diferentes criam profundidade. */
+.hero__feixe {
+  position: absolute;
+  inset: -30% -45%;
+  z-index: -1;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hero__feixe::before,
+.hero__feixe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* Banda principal — estreita e definida.
+   Deliberadamente branco-azulada, não verde: o verde da hero é a luz pontual
+   do ::after. Um feixe verde atravessando a tela toda voltaria a espalhar
+   a cor, que é exatamente o que queremos evitar. */
+.hero__feixe::before {
+  background: linear-gradient(
+    103deg,
+    transparent 0 40%,
+    rgba(180, 214, 255, 0.05)  45%,
+    rgba(226, 240, 255, 0.14)  49.5%,
+    rgba(180, 214, 255, 0.05)  54%,
+    transparent 59% 100%
+  );
+  animation: feixe-varredura 13s var(--ease) infinite alternate;
+}
+
+/* banda secundária — larga, lenta, azul: dá volume sem chamar atenção */
+.hero__feixe::after {
+  background: linear-gradient(
+    97deg,
+    transparent 0 26%,
+    rgba(64, 128, 248, 0.10) 40%,
+    rgba(120, 175, 255, 0.14) 50%,
+    rgba(64, 128, 248, 0.10) 60%,
+    transparent 74% 100%
+  );
+  animation: feixe-varredura 21s var(--ease) infinite alternate-reverse;
+}
+
+@keyframes feixe-varredura {
+  from { transform: translateX(-24%); }
+  to   { transform: translateX(24%); }
+}
+
+/* Sem movimento: o feixe permanece, parado numa posição favorável.
+   Some a animação, não o efeito. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__feixe::before,
+  .hero__feixe::after { animation: none; transform: translateX(6%); }
+}
+
+.hero__grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .hero__grid { grid-template-columns: 1.05fr 0.95fr; }
+}
+
+/* Eyebrow no lugar dos 3 selos empilhados: devolve o topo ao H1.
+   As credenciais migraram para a faixa no rodapé da hero. */
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-inverse-soft);
+}
+.hero__eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 2px;
+  flex: none;
+  background: var(--ax-green-400);
+}
+
+.hero__titulo {
+  font-size: var(--fs-hero);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.03em;
+  color: var(--n-0);
+}
+.hero__titulo .destaque {
+  background: var(--grad-realce);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+
+.hero__texto {
+  max-width: 54ch;
+  margin-top: var(--sp-6);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-relaxed);
+  color: var(--text-inverse-muted);
+}
+
+.hero__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  margin-top: var(--sp-10);
+}
+
+/* Faixa de credenciais no rodapé da hero.
+   Substituiu tanto os selos do topo quanto os indicadores técnicos —
+   os dados de produto (zero CO₂, energia solar) já são cobertos com
+   profundidade no bloco AX Infra; repeti-los aqui só somava altura. */
+.hero__credenciais {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: var(--sp-5) var(--sp-8);
+  margin-top: var(--sp-10);
+  padding-top: var(--sp-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.hero__credencial {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  font-size: var(--fs-xs);
+  line-height: 1.45;
+  color: var(--text-inverse-soft);
+}
+.hero__credencial svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
+  margin-top: 1px;
+  color: var(--ax-blue-300);
+}
+.hero__credencial strong {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--n-0);
+  margin-bottom: 2px;
+}
+
+/* moldura da mídia do hero */
+.hero__midia { position: relative; }
+.hero__midia .ph {
+  border-radius: var(--r-xl);
+  border-color: rgba(255, 255, 255, 0.24);
+  background-color: rgba(255, 255, 255, 0.04);
+  background-image: repeating-linear-gradient(
+    -45deg, transparent 0 9px, rgba(255, 255, 255, 0.05) 9px 10px
+  );
+  box-shadow: var(--sh-xl);
+}
+.hero__midia .ph__dim { background: rgba(0, 0, 0, 0.4); border-color: rgba(255,255,255,0.2); color: var(--n-0); }
+.hero__midia .ph__desc,
+.hero__midia .ph__icone { color: rgba(255, 255, 255, 0.72); }
+
+/* cartão flutuante sobre a mídia */
+.hero__cartao {
+  position: absolute;
+  left: clamp(-1rem, -2vw, -2rem);
+  bottom: clamp(-1.25rem, -2vw, -2rem);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  max-width: 300px;
+  padding: var(--sp-5) var(--sp-6);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--r-lg);
+  background: rgba(4, 20, 42, 0.88);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--sh-lg);
+}
+.hero__cartao p {
+  font-size: var(--fs-xs);
+  line-height: 1.45;
+  color: var(--text-inverse-muted);
+}
+.hero__cartao strong { display: block; color: var(--n-0); font-size: var(--fs-sm); margin-bottom: 2px; }
+
+@media (max-width: 767px) {
+  .hero__cartao { position: static; max-width: none; margin-top: var(--sp-6); }
+}
+
+
+/* ==========================================================================
+   SOLUÇÕES — duas linhas, mesmo peso visual
+   Cada card ocupa a largura toda, com texto de um lado e mídia do outro.
+   O segundo inverte a ordem para criar ritmo na leitura.
+   ========================================================================== */
+
+.solucoes__lista {
+  display: grid;
+  gap: var(--sp-6);
+}
+
+.card-solucao {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 3.25rem);
+  align-items: center;
+  padding: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+@media (min-width: 900px) {
+  .card-solucao { grid-template-columns: 1.05fr 0.95fr; }
+
+  /* inverte: mídia à esquerda, texto à direita.
+     A ordem no HTML permanece texto → mídia, que é a ordem correta de leitura
+     para leitores de tela; só a apresentação muda. */
+  .card-solucao--invertido .card-solucao__texto { order: 2; }
+  .card-solucao--invertido .card-solucao__midia { order: 1; }
+}
+
+/* Território de cor por linha: laranja infravermelho no AX Infra, azul
+   institucional nas pesadoras. Mesmo tratamento, cores diferentes — é o que
+   mantém as duas com o mesmo peso sem parecerem o mesmo produto.
+   O brilho radial fica do lado da mídia em cada card, por isso muda de canto
+   no card invertido. */
+
+.card-solucao--infra {
+  border-color: color-mix(in srgb, var(--ir-500) 26%, var(--border));
+  background:
+    radial-gradient(38rem 22rem at 88% 10%, rgba(255, 106, 26, 0.11), transparent 62%),
+    var(--surface-raised);
+}
+.card-solucao--infra .card-solucao__rotulo { color: var(--ir-500); }
+
+.card-solucao--pesagem {
+  border-color: color-mix(in srgb, var(--ax-blue-500) 30%, var(--border));
+  background:
+    radial-gradient(38rem 22rem at 12% 10%, rgba(32, 96, 208, 0.11), transparent 62%),
+    var(--surface-raised);
+}
+.card-solucao--pesagem .card-solucao__rotulo { color: var(--ax-blue-500); }
+
+.card-solucao__rotulo {
+  display: inline-block;
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.card-solucao__titulo {
+  font-size: var(--fs-h3);
+  margin-bottom: var(--sp-4);
+}
+
+.card-solucao__resumo {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--sp-6);
+  max-width: 56ch;
+}
+
+.card-solucao .lista-check { margin-bottom: var(--sp-8); }
+
+.card-solucao__rodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.card-solucao__midia .ph { border-radius: var(--r-md); }
+
+
+/* ==========================================================================
+   CLIENTES — prova social
+   ========================================================================== */
+
+/* Fundo claro de propósito: a seção fica entre a galeria (cinza) e o FAQ.
+   Com cinza também, galeria e clientes virariam um bloco contínuo. */
+.clientes { background: var(--surface); }
+
+.clientes__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--sp-4);
+}
+.clientes__grid > * { min-width: 0; }
+
+/* A logo entra no lugar do placeholder: manter o object-fit para logomarcas
+   de proporções diferentes conviverem na mesma linha sem distorcer. */
+.clientes__grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: var(--sp-4);
+}
+
+
+/* ==========================================================================
+   DIFERENCIAIS / SOBRE
+   ========================================================================== */
+
+.diferenciais__grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+@media (min-width: 1024px) { .diferenciais__grid { grid-template-columns: 0.95fr 1.05fr; } }
+
+.diferenciais__itens { display: grid; gap: var(--sp-6); }
+
+.diferencial {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-5);
+  align-items: start;
+  padding-bottom: var(--sp-6);
+  border-bottom: 1px solid var(--border);
+}
+.diferencial:last-child { border-bottom: 0; padding-bottom: 0; }
+.diferencial h4 { margin-bottom: var(--sp-2); }
+.diferencial p { font-size: var(--fs-sm); color: var(--text-muted); }
+
+
+/* ==========================================================================
+   GALERIA — fábrica e máquinas em operação
+   ========================================================================== */
+
+.galeria { background: var(--surface-sunken); }
+
+.galeria__grid {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: repeat(2, 1fr);
+}
+/* Os placeholders preenchem a célula — o mosaico define a altura.
+   width E height explícitos: com apenas height:100%, o aspect-ratio derivaria
+   uma largura maior que a coluna quando a linha fica alta. */
+.galeria__grid .ph { width: 100%; height: 100%; }
+
+@media (min-width: 900px) {
+  .galeria__grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: clamp(155px, 15vw, 225px);
+  }
+  /* primeiro item ocupa bloco 2x2 */
+  .galeria__grid > *:first-child { grid-column: span 2; grid-row: span 2; }
+}
+
+
+/* ==========================================================================
+   CONTATO / ORÇAMENTO
+   ========================================================================== */
+
+.contato {
+  position: relative;
+  background: var(--grad-dark);
+  overflow: hidden;
+  isolation: isolate;
+}
+.contato::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(42rem 26rem at 4% 8%,  rgba(32, 96, 208, 0.40), transparent 62%),
+    radial-gradient(30rem 20rem at 78% 96%, rgba(11, 46, 92, 0.85), transparent 70%),
+    /* a luz verde: concentrada e pequena, não uma névoa */
+    radial-gradient(9rem 9rem at 97% 4%, var(--luz-verde), transparent 72%);
+  pointer-events: none;
+}
+
+.contato__grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+@media (min-width: 1024px) { .contato__grid { grid-template-columns: 0.9fr 1.1fr; } }
+
+.contato__info .lista-check { margin-top: var(--sp-8); }
+.contato__info .lista-check li { color: var(--text-inverse-muted); }
+.contato__info .lista-check strong { color: var(--n-0); }
+
+.contato__canais {
+  display: grid;
+  gap: var(--sp-4);
+  margin-top: var(--sp-10);
+  padding-top: var(--sp-8);
+  border-top: 1px solid var(--border);
+}
+.contato__canal {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  color: var(--text-inverse-muted);
+}
+.contato__canal:hover { color: var(--n-0); }
+.contato__canal strong { display: block; color: var(--n-0); font-size: var(--fs-sm); }
+.contato__canal span { font-size: var(--fs-xs); color: var(--text-inverse-soft); }
+
+/* cartão do formulário — sempre claro, para máxima legibilidade */
+.contato__form {
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  border-radius: var(--r-xl);
+  background: var(--n-0);
+  box-shadow: var(--sh-xl);
+  /* reverte para os tokens claros dentro do cartão */
+  color: var(--n-900);
+  --text: var(--n-900);
+  --text-muted: var(--n-600);
+  --text-soft: var(--n-500);
+  --surface: var(--n-0);
+  --surface-sunken: var(--n-50);
+  --border: var(--n-200);
+  --border-strong: var(--n-300);
+  --accent: var(--ax-blue-500);
+}
+.contato__form h3 { margin-bottom: var(--sp-2); }
+.contato__form > p { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--sp-8); }
+
+.form__nota {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-xs);
+  color: var(--text-soft);
+  text-align: center;
+}
+
+
+/* ==========================================================================
+   RODAPÉ
+   ========================================================================== */
+
+.rodape {
+  background: var(--ax-navy-950);
+  color: var(--text-inverse-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rodape__topo {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  padding-block: clamp(4.5rem, 7.5vw, 7.5rem) clamp(4rem, 6vw, 6rem);
+}
+/* Três colunas: a marca ficou com o dobro da largura das demais — foi ela que
+   herdou o espaço da antiga coluna "Soluções". O contato é um pouco mais largo
+   que a navegação por causa do endereço. */
+@media (min-width: 768px) {
+  .rodape__topo { grid-template-columns: repeat(2, 1fr); }
+  /* com 3 blocos em 2 colunas, a marca ocupa a linha inteira em vez de deixar
+     um vão ao lado */
+  .rodape__marca { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .rodape__topo { grid-template-columns: 2.1fr 1fr 1.25fr; }
+  .rodape__marca { grid-column: auto; }
+}
+
+.rodape__marca img { height: 54px; width: auto; margin-bottom: var(--sp-6); }
+
+/* o rodapé é escuro mas não usa .tema-escuro — o placeholder precisa do tratamento */
+.rodape .ph {
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.03);
+  background-image: repeating-linear-gradient(
+    -45deg, transparent 0 9px, rgba(255, 255, 255, 0.05) 9px 10px
+  );
+}
+.rodape .ph__dim {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--text-inverse-muted);
+}
+.rodape .ph__desc { color: var(--text-inverse-soft); }
+.rodape__marca p { font-size: var(--fs-sm); max-width: 52ch; margin-bottom: var(--sp-6); }
+
+.rodape__social { display: flex; gap: var(--sp-3); }
+.rodape__social a {
+  display: grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--r-sm);
+  color: var(--text-inverse-muted);
+  transition: background-color var(--dur-base) var(--ease),
+              border-color var(--dur-base) var(--ease),
+              color var(--dur-base) var(--ease);
+}
+.rodape__social a:hover {
+  background: var(--ax-blue-500);
+  border-color: var(--ax-blue-500);
+  color: var(--n-0);
+}
+.rodape__social svg { width: 18px; height: 18px; }
+
+.rodape__titulo {
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--n-0);
+  margin-bottom: var(--sp-6);
+}
+
+.rodape__links { display: grid; gap: var(--sp-3); }
+.rodape__links a { font-size: var(--fs-sm); color: var(--text-inverse-muted); }
+.rodape__links a:hover { color: var(--ax-blue-300); }
+
+.rodape__contato { display: grid; gap: var(--sp-5); }
+.rodape__contato-item { display: flex; gap: var(--sp-3); align-items: start; font-size: var(--fs-sm); }
+.rodape__contato-item svg { width: 17px; height: 17px; flex: none; margin-top: 4px; color: var(--ax-blue-300); }
+.rodape__contato-item a { color: var(--text-inverse-muted); }
+.rodape__contato-item a:hover { color: var(--n-0); }
+.rodape__contato-item address { font-style: normal; line-height: var(--lh-normal); }
+
+.rodape__base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  /* afastada do bloco principal e rente à base da página */
+  margin-top: clamp(1.5rem, 3vw, 3rem);
+  padding-block: var(--sp-5);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: var(--fs-xs);
+  color: var(--text-inverse-soft);
+}
+.rodape__base a { color: var(--text-inverse-soft); }
+.rodape__base a:hover { color: var(--n-0); }

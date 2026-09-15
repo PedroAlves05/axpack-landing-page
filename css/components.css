@@ -1,0 +1,679 @@
+/* ==========================================================================
+   AXPACK — COMPONENTES
+   Todos leem apenas tokens semânticos, portanto funcionam em tema claro e escuro.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   BOTÕES
+   ========================================================================== */
+
+.btn {
+  --btn-bg: var(--accent);
+  --btn-fg: var(--accent-contrast);
+  --btn-bd: transparent;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-8);
+  border: 1px solid var(--btn-bd);
+  border-radius: var(--r-sm);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-base) var(--ease),
+    background-color var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease),
+    color var(--dur-base) var(--ease);
+}
+
+.btn:hover {
+  color: var(--btn-fg);
+  transform: translateY(-2px);
+}
+.btn:active { transform: translateY(0); }
+
+.btn svg { flex: none; width: 18px; height: 18px; }
+
+/* Seta que desliza no hover */
+.btn__seta {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.btn:hover .btn__seta { transform: translateX(4px); }
+
+/* --- Variantes --- */
+
+.btn--primario {
+  --btn-bg: var(--ax-blue-500);
+  --btn-fg: var(--n-0);
+  box-shadow: 0 6px 18px rgba(32, 96, 208, 0.26);
+}
+.btn--primario:hover {
+  --btn-bg: var(--ax-blue-600);
+  box-shadow: 0 12px 30px rgba(32, 96, 208, 0.36);
+}
+
+.btn--infra {
+  --btn-bg: var(--ir-500);
+  --btn-fg: var(--n-0);
+  box-shadow: 0 6px 18px rgba(230, 57, 18, 0.30);
+}
+.btn--infra:hover {
+  --btn-bg: var(--ir-600);
+  box-shadow: 0 12px 34px rgba(230, 57, 18, 0.42);
+}
+
+.btn--verde {
+  --btn-bg: var(--ax-green-500);
+  --btn-fg: var(--n-0);
+  box-shadow: 0 6px 18px rgba(111, 191, 0, 0.26);
+}
+.btn--verde:hover { --btn-bg: var(--ax-green-600); }
+
+/* WhatsApp — cor do próprio canal, não da marca. É um atalho reconhecível;
+   pintá-lo de azul institucional tiraria justamente o que o faz funcionar. */
+.btn--whats {
+  --btn-bg: #22C15E;
+  --btn-fg: var(--n-0);
+  box-shadow: 0 6px 18px rgba(34, 193, 94, 0.26);
+}
+.btn--whats:hover {
+  --btn-bg: #1FAE55;
+  box-shadow: 0 12px 30px rgba(34, 193, 94, 0.36);
+}
+.btn--whats svg { width: 19px; height: 19px; }
+
+.btn--contorno {
+  --btn-bg: transparent;
+  --btn-fg: var(--text);
+  --btn-bd: var(--border-strong);
+}
+.btn--contorno:hover {
+  --btn-bd: var(--accent);
+  --btn-fg: var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+
+/* Contorno sobre fundo escuro / imagem */
+.btn--fantasma {
+  --btn-bg: rgba(255, 255, 255, 0.06);
+  --btn-fg: var(--n-0);
+  --btn-bd: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(8px);
+}
+.btn--fantasma:hover {
+  --btn-bg: rgba(255, 255, 255, 0.14);
+  --btn-bd: rgba(255, 255, 255, 0.5);
+}
+
+.btn--grande { padding: var(--sp-5) var(--sp-10); font-size: var(--fs-body); }
+.btn--bloco  { width: 100%; }
+
+/* rótulos longos precisam quebrar em telas estreitas, senão estouram o container */
+@media (max-width: 520px) {
+  .btn { white-space: normal; }
+  .btn--grande { padding-inline: var(--sp-6); }
+}
+
+/* Link com seta, sem caixa */
+.link-seta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--accent);
+}
+.link-seta svg { width: 16px; height: 16px; transition: transform var(--dur-base) var(--ease-out); }
+.link-seta:hover svg { transform: translateX(4px); }
+
+
+/* ==========================================================================
+   SELOS E ETIQUETAS
+   ========================================================================== */
+
+.selo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  background: var(--surface-raised);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.selo svg { width: 14px; height: 14px; flex: none; }
+
+/* em telas estreitas o selo precisa quebrar, senão estoura o card */
+@media (max-width: 520px) {
+  .selo { white-space: normal; }
+}
+
+.selo--destaque {
+  border-color: color-mix(in srgb, var(--ax-blue-500) 32%, transparent);
+  background: var(--ax-blue-50);
+  color: var(--ax-blue-700);
+}
+.selo--infra {
+  border-color: color-mix(in srgb, var(--ir-500) 40%, transparent);
+  background: color-mix(in srgb, var(--ir-500) 12%, transparent);
+  color: var(--ir-500);
+}
+.selo--verde {
+  border-color: color-mix(in srgb, var(--ax-green-500) 40%, transparent);
+  background: color-mix(in srgb, var(--ax-green-500) 12%, transparent);
+  color: var(--ax-green-600);
+}
+.tema-escuro .selo--verde { color: var(--ax-green-400); }
+.tema-escuro .selo--destaque {
+  background: rgba(64, 128, 248, 0.12);
+  color: var(--ax-blue-300);
+}
+
+/* Etiqueta de canto em card de produto */
+.etiqueta {
+  position: absolute;
+  top: var(--sp-5);
+  left: var(--sp-5);
+  z-index: 2;
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--r-xs);
+  background: var(--grad-ir);
+  color: var(--n-0);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+}
+
+
+/* ==========================================================================
+   PLACEHOLDER DE IMAGEM
+   Reserva o espaço na proporção exata do asset final.
+   Uso: <div class="ph" style="--ar: 16/9"> com .ph__dim e .ph__desc
+   Para substituir: troque por <img> mantendo a mesma proporção.
+   ========================================================================== */
+
+.ph {
+  position: relative;
+  aspect-ratio: var(--ar, 16 / 9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-6);
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--r-md);
+  background-color: var(--surface-sunken);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 9px,
+    color-mix(in srgb, var(--border) 45%, transparent) 9px 10px
+  );
+  text-align: center;
+  overflow: hidden;
+}
+
+.ph__icone {
+  width: 30px;
+  height: 30px;
+  color: var(--text-soft);
+  opacity: 0.75;
+  margin-bottom: var(--sp-1);
+}
+.ph__icone svg { width: 100%; height: 100%; }
+
+.ph__dim {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--r-full);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.ph__desc {
+  max-width: 34ch;
+  font-size: var(--fs-xs);
+  line-height: 1.45;
+  color: var(--text-soft);
+}
+
+/* Placeholder sobre fundo escuro */
+.tema-escuro .ph {
+  border-color: rgba(255, 255, 255, 0.22);
+  background-color: rgba(255, 255, 255, 0.03);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 9px,
+    rgba(255, 255, 255, 0.05) 9px 10px
+  );
+}
+.tema-escuro .ph__dim {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.ph--video::after {
+  content: "";
+  position: absolute;
+  inset: auto auto var(--sp-4) var(--sp-4);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r-full);
+  background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center / 20px no-repeat;
+  opacity: 0.9;
+}
+
+
+/* ==========================================================================
+   CARD BASE
+   ========================================================================== */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+  overflow: hidden;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease);
+}
+.card__corpo { padding: var(--card-pad); display: flex; flex-direction: column; flex: 1; }
+
+/* Card que reage ao hover (usado quando o card inteiro é clicável) */
+.card--interativo:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: var(--sh-lg);
+}
+
+.tema-escuro .card {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: var(--border);
+}
+.tema-escuro .card--interativo:hover {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+
+
+/* ==========================================================================
+   ÍCONE EM MOLDURA — hexágono achatado, ecoando o material impresso
+   ========================================================================== */
+
+.icone-box {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: var(--r-md);
+  background: var(--grad-blue);
+  color: var(--n-0);
+  box-shadow: 0 6px 16px rgba(32, 96, 208, 0.28);
+}
+.icone-box svg { width: 22px; height: 22px; }
+
+.icone-box--infra {
+  background: var(--grad-ir);
+  box-shadow: 0 6px 16px rgba(230, 57, 18, 0.30);
+}
+.icone-box--verde {
+  background: linear-gradient(135deg, var(--ax-green-400), var(--ax-green-600));
+  box-shadow: 0 6px 16px rgba(111, 191, 0, 0.28);
+}
+.icone-box--vazado {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--accent);
+  box-shadow: none;
+}
+
+.icone-box--sm { width: 36px; height: 36px; border-radius: var(--r-sm); }
+.icone-box--sm svg { width: 18px; height: 18px; }
+
+
+/* ==========================================================================
+   LISTA DE CHECK
+   ========================================================================== */
+
+.lista-check { display: grid; gap: var(--sp-4); }
+
+.lista-check li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: var(--sp-3);
+  align-items: start;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--text-muted);
+}
+
+/* disco verde */
+.lista-check li::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: var(--r-full);
+  background-color: var(--ax-green-500);
+}
+
+/* marca de check desenhada sobre o disco */
+.lista-check li::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  width: 10px;
+  height: 5px;
+  border-left: 2px solid var(--n-0);
+  border-bottom: 2px solid var(--n-0);
+  transform: rotate(-45deg);
+}
+
+.lista-check strong { color: var(--text); }
+
+
+/* ==========================================================================
+   TABELA COMPARATIVA
+   ========================================================================== */
+
+.tabela-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+  -webkit-overflow-scrolling: touch;
+}
+.tema-escuro .tabela-wrap { background: rgba(255, 255, 255, 0.035); }
+
+.tabela-comp { min-width: 620px; font-size: var(--fs-sm); }
+
+.tabela-comp th,
+.tabela-comp td {
+  padding: var(--sp-4) var(--sp-5);
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
+}
+.tabela-comp tbody tr:last-child th,
+.tabela-comp tbody tr:last-child td { border-bottom: 0; }
+
+.tabela-comp thead th {
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--border);
+}
+
+.tabela-comp tbody th {
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+  width: 34%;
+}
+
+.tabela-comp td { color: var(--text-muted); }
+
+/* coluna de destaque — AX Infra */
+.tabela-comp .col-destaque {
+  background: color-mix(in srgb, var(--ir-500) 9%, transparent);
+  color: var(--text);
+  font-weight: var(--fw-medium);
+  box-shadow: inset 2px 0 0 var(--ir-500);
+}
+.tabela-comp thead .col-destaque { color: var(--ir-500); }
+
+
+/* ==========================================================================
+   FICHA TÉCNICA — pares rótulo/valor
+   ========================================================================== */
+
+.ficha { display: grid; gap: 0; }
+
+.ficha__item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  justify-content: space-between;
+  align-items: baseline;
+  padding-block: var(--sp-3);
+  border-bottom: 1px dashed var(--border);
+}
+.ficha__item:last-child { border-bottom: 0; }
+
+.ficha__rotulo {
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+}
+.ficha__valor {
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--text);
+  text-align: right;
+}
+
+
+/* ==========================================================================
+   ACORDEÃO (FAQ)
+   Usa <details>/<summary> — funciona sem JavaScript.
+   ========================================================================== */
+
+.acordeao { border-top: 1px solid var(--border); }
+
+.acordeao__item { border-bottom: 1px solid var(--border); }
+
+.acordeao__item > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  padding-block: var(--sp-5);
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--dur-fast) var(--ease);
+}
+.acordeao__item > summary::-webkit-details-marker { display: none; }
+.acordeao__item > summary:hover { color: var(--accent); }
+
+.acordeao__sinal {
+  position: relative;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-full);
+  transition: background-color var(--dur-base) var(--ease),
+              border-color var(--dur-base) var(--ease),
+              transform var(--dur-base) var(--ease);
+}
+.acordeao__sinal::before,
+.acordeao__sinal::after {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+.acordeao__sinal::before { width: 12px; height: 2px; }
+.acordeao__sinal::after  { width: 2px; height: 12px; transition: opacity var(--dur-base) var(--ease); }
+
+.acordeao__item[open] .acordeao__sinal {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+  transform: rotate(180deg);
+}
+.acordeao__item[open] .acordeao__sinal::after { opacity: 0; }
+
+.acordeao__conteudo {
+  padding-bottom: var(--sp-6);
+  max-width: 68ch;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+
+/* ==========================================================================
+   FORMULÁRIO
+   ========================================================================== */
+
+.form { display: grid; gap: var(--sp-5); }
+
+.form__linha {
+  display: grid;
+  gap: var(--sp-5);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .form__linha--2 { grid-template-columns: 1fr 1fr; }
+}
+
+.campo { display: grid; gap: var(--sp-2); }
+
+.campo__rotulo {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.campo__rotulo .obrigatorio { color: var(--ir-500); }
+
+.campo__controle {
+  width: 100%;
+  padding: var(--sp-4) var(--sp-5);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  transition: border-color var(--dur-fast) var(--ease),
+              box-shadow var(--dur-fast) var(--ease);
+  appearance: none;
+}
+.campo__controle::placeholder { color: var(--text-soft); opacity: 0.8; }
+
+.campo__controle:hover { border-color: var(--border-strong); }
+.campo__controle:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+textarea.campo__controle { min-height: 132px; resize: vertical; line-height: var(--lh-normal); }
+
+/* seta customizada do select */
+select.campo__controle {
+  padding-right: var(--sp-10);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2366717F' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--sp-5) center;
+  background-size: 18px;
+  cursor: pointer;
+}
+
+/* consentimento */
+.campo-consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-3);
+  align-items: start;
+  font-size: var(--fs-xs);
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+.campo-consent input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--ax-blue-500);
+  cursor: pointer;
+}
+
+
+/* ==========================================================================
+   BOTÃO FLUTUANTE DE WHATSAPP
+   ========================================================================== */
+
+.whatsapp-flutuante {
+  position: fixed;
+  right: clamp(1rem, 2vw, 1.75rem);
+  bottom: clamp(1rem, 2vw, 1.75rem);
+  z-index: var(--z-float);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-radius: var(--r-full);
+  background: #22C15E;
+  color: var(--n-0);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  box-shadow: 0 10px 30px rgba(34, 193, 94, 0.42);
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease);
+}
+.whatsapp-flutuante svg { width: 28px; height: 28px; flex: none; }
+
+.whatsapp-flutuante__texto {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition: max-width var(--dur-slow) var(--ease-out),
+              opacity var(--dur-base) var(--ease),
+              padding-right var(--dur-slow) var(--ease-out);
+}
+.whatsapp-flutuante:hover,
+.whatsapp-flutuante:focus-visible {
+  color: var(--n-0);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(34, 193, 94, 0.52);
+}
+.whatsapp-flutuante:hover .whatsapp-flutuante__texto,
+.whatsapp-flutuante:focus-visible .whatsapp-flutuante__texto {
+  max-width: 220px;
+  opacity: 1;
+  padding-right: var(--sp-3);
+}
+
+@media (max-width: 767px) {
+  /* no mobile mantém apenas o ícone, para não cobrir conteúdo */
+  .whatsapp-flutuante__texto { display: none; }
+}

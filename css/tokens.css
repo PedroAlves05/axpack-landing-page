@@ -1,0 +1,287 @@
+/* ==========================================================================
+   AXPACK — DESIGN TOKENS
+   Fonte única de verdade para cor, tipografia, espaçamento, raio e elevação.
+   Nenhum valor bruto deve ser escrito fora deste arquivo.
+   ========================================================================== */
+
+:root {
+
+  /* ----------------------------------------------------------------------
+     1. COR DE MARCA
+     Amostrada diretamente do arquivo da logo (V2 - AxPack Logo.png).
+     ---------------------------------------------------------------------- */
+
+  /* Azul — cor institucional primária */
+  --ax-blue-50:   #EEF4FE;
+  --ax-blue-100:  #D9E6FD;
+  --ax-blue-200:  #B4CDFA;
+  --ax-blue-300:  #7FA9F6;
+  --ax-blue-400:  #4080F8;   /* azul claro do símbolo */
+  --ax-blue-500:  #2060D0;   /* PRIMÁRIA — wordmark e símbolo */
+  --ax-blue-600:  #1A4FC0;
+  --ax-blue-700:  #0048B8;   /* azul profundo do símbolo */
+  --ax-blue-800:  #0C3585;
+  --ax-blue-900:  #07204F;
+
+  /* Navy — gradação escura da marca. Base de TODAS as seções escuras.
+     Azul puro, sem componente verde: é o que mantém os fundos limpos. */
+  --ax-navy-700: #0B2E5C;
+  --ax-navy-800: #071F42;
+  --ax-navy-900: #04142A;
+  --ax-navy-950: #020B18;
+
+  /* Verde — USO RESTRITO. Ver "Regra do verde" no fim deste bloco. */
+  --ax-green-300: #B6F55C;
+  --ax-green-400: #8FE500;   /* verde neon do símbolo */
+  --ax-green-500: #6FBF00;   /* verde institucional */
+  --ax-green-600: #559100;
+  --ax-green-700: #3E6B00;
+
+  /* Tinta — preto-esverdeado da tagline da logo.
+     Mantido como token de marca, mas NÃO é mais a base das seções escuras
+     (o tom verde dele era o que sujava os fundos). Use --ax-navy-*. */
+  --ax-ink:       #002018;
+  --ax-ink-soft:  #06342A;
+
+  /* ----------------------------------------------------------------------
+     REGRA DO VERDE
+     O verde é ~20% da logo. Espalhá-lo pela interface inverte essa proporção
+     e deixa a paleta "forçada". Ele tem exatamente dois usos:
+
+       1. CONFIRMAÇÃO SEMÂNTICA — checks, selos positivos, foco no escuro.
+       2. UMA LUZ por seção escura — concentrada e deliberada, nunca uma
+          névoa difusa espalhada por meia tela.
+
+     Todo o resto (ícones de apoio, hovers, links, divisores) é azul tonal.
+     Laranja/vermelho seguem exclusivos do AX Infra.
+     ---------------------------------------------------------------------- */
+
+  /* Neutros */
+  --n-0:    #FFFFFF;
+  --n-25:   #FAFBFC;
+  --n-50:   #F4F6F9;
+  --n-100:  #EAEEF3;
+  --n-200:  #D8DEE7;
+  --n-300:  #B9C2CF;
+  --n-400:  #8C97A8;
+  --n-500:  #66717F;
+  --n-600:  #4B5563;
+  --n-700:  #353D48;
+  --n-800:  #1F2630;
+  --n-900:  #11161D;
+
+  /* Infravermelho — EXCLUSIVO do universo AX Infra.
+     Nunca usar como cor de sistema (botões genéricos, links, outras seções). */
+  --ir-300: #FFB27A;
+  --ir-400: #FF8A3D;
+  --ir-500: #FF6A1A;
+  --ir-600: #E63912;
+  --ir-700: #B32409;
+
+
+  /* ----------------------------------------------------------------------
+     2. COR SEMÂNTICA — superfícies claras (padrão da página)
+     ---------------------------------------------------------------------- */
+
+  --surface:            var(--n-0);
+  --surface-sunken:     var(--n-50);
+  --surface-raised:     var(--n-0);
+  --surface-inverse:    var(--ax-ink);
+
+  --border:             var(--n-200);
+  --border-strong:      var(--n-300);
+  --border-subtle:      var(--n-100);
+
+  --text:               var(--n-900);
+  --text-muted:         var(--n-600);
+  --text-soft:          var(--n-500);
+  --text-inverse:       var(--n-0);
+  --text-inverse-muted: rgba(255, 255, 255, 0.72);
+  --text-inverse-soft:  rgba(255, 255, 255, 0.55);
+
+  --accent:             var(--ax-blue-500);
+  --accent-hover:       var(--ax-blue-600);
+  --accent-contrast:    var(--n-0);
+
+
+  /* ----------------------------------------------------------------------
+     3. GRADIENTES E EFEITOS
+     ---------------------------------------------------------------------- */
+
+  --grad-blue:    linear-gradient(135deg, var(--ax-blue-500) 0%, var(--ax-blue-700) 100%);
+  --grad-ir:      linear-gradient(120deg, var(--ir-400) 0%, var(--ir-600) 100%);
+
+  /* Fundo escuro — 100% tonal em azul. Nenhuma passagem por verde:
+     gradiente entre matizes distantes suja no meio do percurso. */
+  --grad-dark:    linear-gradient(168deg,
+                    var(--ax-navy-700) 0%,
+                    #061C3C 46%,
+                    var(--ax-navy-950) 100%);
+
+  /* Realce tipográfico — tonal em azul, do claro ao médio */
+  --grad-realce:  linear-gradient(96deg, #9DC4FF 0%, var(--ax-blue-400) 100%);
+
+  --grad-fade-b:  linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.72) 100%);
+
+  /* A luz verde — concentrada, para uso único por seção escura */
+  --luz-verde:    rgba(143, 229, 0, 0.55);
+
+  /* Malha técnica usada como textura de fundo em seções escuras */
+  --grid-line:    rgba(255, 255, 255, 0.045);
+  --grid-size:    72px;
+
+
+  /* ----------------------------------------------------------------------
+     4. TIPOGRAFIA
+     ---------------------------------------------------------------------- */
+
+  --font-display: "Archivo", "Archivo Fallback", -apple-system, BlinkMacSystemFont,
+                  "Segoe UI", Roboto, Arial, sans-serif;
+  --font-body:    "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont,
+                  "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono:    ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, monospace;
+
+  /* Escala fluida — clamp(min, preferido, max)
+     Revisada: os títulos caíram ~20%, o texto de leitura NÃO.
+     O público é dono de fazenda e comprador de CD — faixa etária mais alta,
+     muita leitura no celular em operação. Corpo abaixo de 16px custa conversão.
+     A hero foi mantida grande de propósito: com h2 em 36px, a distância
+     hero→seção aumentou e a hierarquia ficou mais clara, não menos. */
+  --fs-hero:   clamp(2.25rem,  1.55rem + 3vw,    3.75rem);  /* 36 → 60 */
+  --fs-h1:     clamp(2rem,     1.45rem + 2.4vw,  3.25rem);  /* 32 → 52 */
+  --fs-h2:     clamp(1.5rem,   1.15rem + 1.6vw,  2.25rem);  /* 24 → 36 */
+  --fs-h3:     clamp(1.125rem, 1.02rem + 0.5vw,  1.375rem); /* 18 → 22 */
+  --fs-h4:     clamp(1rem,     0.96rem + 0.2vw,  1.125rem); /* 16 → 18 */
+  --fs-lead:   clamp(1rem,     0.96rem + 0.25vw, 1.125rem); /* 16 → 18 */
+  --fs-body:   1rem;        /* 16px — piso de leitura, não reduzir */
+  --fs-sm:     0.9375rem;   /* 15px */
+  --fs-xs:     0.8125rem;   /* 13px */
+  --fs-eyebrow: 0.75rem;    /* 12px */
+
+  --lh-tight:  1.06;
+  --lh-snug:   1.2;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.68;
+
+  --ls-tight:   -0.025em;
+  --ls-normal:  0;
+  --ls-wide:    0.06em;
+  --ls-eyebrow: 0.16em;
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    800;
+
+
+  /* ----------------------------------------------------------------------
+     5. ESPAÇAMENTO — escala base 4px
+     ---------------------------------------------------------------------- */
+
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.25rem;
+  --sp-6:  1.5rem;
+  --sp-7:  1.75rem;
+  --sp-8:  2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+  --sp-24: 6rem;
+  --sp-32: 8rem;
+
+  /* Respiro vertical entre seções — fluido. Reduzido de 136px para 104px. */
+  --section-y: clamp(3.25rem, 2rem + 5vw, 6.5rem);
+
+  /* Padding interno padrão de card — reduzido de 32px para 24px */
+  --card-pad: var(--sp-6);
+
+  /* Layout */
+  --container:      1240px;
+  --container-wide: 1440px;
+  --container-text: 720px;
+  --gutter:         clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+
+
+  /* ----------------------------------------------------------------------
+     6. RAIO, BORDA E ELEVAÇÃO
+     ---------------------------------------------------------------------- */
+
+  --r-xs:   4px;
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   18px;
+  --r-xl:   26px;
+  --r-full: 999px;
+
+  --sh-xs: 0 1px 2px rgba(17, 22, 29, 0.06);
+  --sh-sm: 0 2px 8px rgba(17, 22, 29, 0.07);
+  --sh-md: 0 10px 28px rgba(17, 22, 29, 0.09);
+  --sh-lg: 0 22px 54px rgba(17, 22, 29, 0.13);
+  --sh-xl: 0 38px 90px rgba(7, 32, 79, 0.20);
+
+  --glow-blue:  0 0 0 1px rgba(64, 128, 248, 0.28), 0 18px 50px rgba(32, 96, 208, 0.30);
+  --glow-ir:    0 0 0 1px rgba(255, 138, 61, 0.30), 0 18px 60px rgba(230, 57, 18, 0.32);
+  --glow-green: 0 0 0 1px rgba(143, 229, 0, 0.30), 0 14px 44px rgba(111, 191, 0, 0.24);
+
+
+  /* ----------------------------------------------------------------------
+     7. MOVIMENTO
+     ---------------------------------------------------------------------- */
+
+  --ease:      cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast:  140ms;
+  --dur-base:  260ms;
+  --dur-slow:  520ms;
+
+
+  /* ----------------------------------------------------------------------
+     8. CAMADAS
+     ---------------------------------------------------------------------- */
+
+  --z-base:    1;
+  --z-sticky:  100;
+  --z-header:  200;
+  --z-float:   300;
+  --z-overlay: 400;
+}
+
+
+/* ==========================================================================
+   ESCOPO ESCURO
+   Aplique .tema-escuro a qualquer seção para inverter as cores semânticas.
+   Os componentes leem apenas os tokens semânticos, então funcionam nos dois.
+   ========================================================================== */
+
+.tema-escuro {
+  --surface:        var(--ax-navy-900);
+  --surface-sunken: var(--ax-navy-950);
+  --surface-raised: rgba(255, 255, 255, 0.04);
+
+  --border:        rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --border-subtle: rgba(255, 255, 255, 0.07);
+
+  --text:       var(--n-0);
+  --text-muted: rgba(255, 255, 255, 0.72);
+  --text-soft:  rgba(255, 255, 255, 0.55);
+
+  --accent:          var(--ax-blue-400);
+  --accent-hover:    var(--ax-blue-300);
+  --accent-contrast: var(--ax-navy-950);
+
+  color: var(--text);
+  background-color: var(--surface);
+}
+
+/* Escopo infravermelho — usado apenas dentro do bloco AX Infra */
+.tema-infra {
+  --accent:       var(--ir-500);
+  --accent-hover: var(--ir-400);
+  --accent-contrast: var(--n-0);
+}
