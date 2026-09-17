@@ -254,9 +254,17 @@
         </div>
 
         <div class="card-solucao__midia">
+          <!-- Vídeo institucional do cliente explicando o AX Infra (fruta, queimador a
+               gás riscado, energia solar, patente). preload="none": só baixa se o
+               visitante clicar em play — 1min54s com narração, não é loop de fundo
+               como o vídeo da hero. Conversão e decisões em CLAUDE.md §15. -->
           <div class="midia" style="--ar: 16 / 9;">
-            <img src="assets/img/temperatura-pos-axinfra.jpg" width="1200" height="675" loading="lazy" decoding="async"
-                 alt="Termômetro infravermelho marcando 23,5 °C em uma batata logo após a secagem pelo AX Infra">
+            <video controls preload="none" width="1280" height="720"
+                   poster="assets/img/axinfra-explicativo-poster.jpg"
+                   aria-label="Vídeo explicativo do sistema AX Infra">
+              <source src="assets/video/axinfra-explicativo.mp4" type="video/mp4">
+              <p>Seu navegador não reproduz vídeo em HTML5. <a href="assets/video/axinfra-explicativo.mp4">Baixar o vídeo explicativo do AX Infra</a>.</p>
+            </video>
           </div>
         </div>
       </article>
