@@ -96,7 +96,8 @@
 <section class="hero">
 
   <!-- Feixe infravermelho — decorativo. Traduz o princípio físico do AX Infra:
-       o calor viaja por radiação. Congela sozinho em prefers-reduced-motion. -->
+       o calor viaja por ondas eletromagnéticas. Congela sozinho em
+       prefers-reduced-motion. -->
   <div class="hero__feixe" aria-hidden="true"></div>
 
   <div class="container">
@@ -104,7 +105,7 @@
 
     <div class="hero__conteudo">
 
-      <p class="hero__eyebrow reveal">Indústria de pós-colheita · Matão/SP</p>
+      <p class="hero__eyebrow reveal">Indústria do ramo de pós-colheita</p>
 
       <h1 class="hero__titulo reveal" data-delay="1">
         A evolução do
@@ -129,13 +130,23 @@
     </div>
 
     <div class="hero__midia reveal" data-delay="2">
-      <!-- ASSET PENDENTE: vídeo/foto do AX Infra em operação (cliente confirmou ter no kickoff) -->
-      <div class="ph ph--video" style="--ar: 4 / 3;">
-        <span class="ph__icone">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3V9Z"/></svg>
-        </span>
-        <span class="ph__dim">1440 × 1080 px</span>
-        <span class="ph__desc">Vídeo ou foto principal: sistema AX Infra em operação, com o túnel de secagem e o produto passando na esteira</span>
+      <div class="midia" style="--ar: 16 / 9;">
+        <!-- Filmagem real de dentro do túnel AX Infra: lâmpadas infravermelhas acesas,
+             batatas passando por baixo. Fonte: 4K60 HEVC 10-bit 4:2:2 (86 Mbps, 83 MB) —
+             nenhum navegador decodifica esse perfil. Convertido para MP4 H.264 e WebM
+             VP9, 1600px, 30fps, sem áudio: ~1,3 MB cada. Comando de referência em
+             CLAUDE.md §13 (Vídeo do hero).
+
+             data-hero-video: js/main.js pausa a reprodução quando o visitante pede
+             menos movimento (prefers-reduced-motion) — sem JS, o vídeo roda normal,
+             pois autoplay+muted já é permitido pelo navegador sem intervenção. -->
+        <video data-hero-video width="1600" height="900" autoplay muted loop playsinline
+               poster="assets/img/hero-axinfra-poster.jpg" aria-hidden="true">
+          <source src="assets/video/hero-axinfra.webm" type="video/webm">
+          <source src="assets/video/hero-axinfra.mp4" type="video/mp4">
+          <img src="assets/img/hero-axinfra-poster.jpg" width="1600" height="900"
+               alt="Túnel de secagem AX Infra em operação: lâmpadas infravermelhas acesas sobre batatas na esteira">
+        </video>
       </div>
 
       <div class="hero__cartao">
@@ -144,7 +155,7 @@
         </span>
         <p>
           <strong>Sistema AX Infra</strong>
-          Secagem por radiação infravermelha, sem queimador a gás.
+          Secagem por infravermelho através de ondas eletromagnéticas.
         </p>
       </div>
     </div>
@@ -205,7 +216,7 @@
 
     <div class="secao-head reveal">
       <p class="eyebrow">Nossas soluções</p>
-      <h2>Duas linhas para o seu pós-colheita</h2>
+      <h2>O que oferecemos para o seu pós-colheita</h2>
       <p class="lead">
         Entregamos soluções completas e personalizadas para frutas e legumes,
         garantindo segurança, praticidade e alto desempenho em cada etapa do processo.
@@ -220,7 +231,7 @@
           <p class="card-solucao__rotulo">Secagem</p>
           <h3 class="card-solucao__titulo">AX Infra — Sistema de Secagem por Infravermelho</h3>
           <p class="card-solucao__resumo">
-            Secagem rápida por radiação infravermelha. O calor viaja por ondas
+            Secagem rápida por infravermelho. O calor viaja por ondas
             eletromagnéticas e aquece o produto diretamente, sem queimador a gás,
             sem emissão de CO₂ e sem aquecer a fruta. Desenvolvido para batata,
             laranja, limão, tangerina, mamão e manga.
@@ -243,13 +254,9 @@
         </div>
 
         <div class="card-solucao__midia">
-          <!-- ASSET PENDENTE: sistema AX Infra instalado na linha do cliente -->
-          <div class="ph" style="--ar: 4 / 3;">
-            <span class="ph__icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="m3 17 5-4 4 3 3-2 6 5"/></svg>
-            </span>
-            <span class="ph__dim">1200 × 900 px</span>
-            <span class="ph__desc">Sistema AX Infra instalado na linha de produção do cliente</span>
+          <div class="midia" style="--ar: 16 / 9;">
+            <img src="assets/img/temperatura-pos-axinfra.jpg" width="1200" height="675" loading="lazy" decoding="async"
+                 alt="Termômetro infravermelho marcando 23,5 °C em uma batata logo após a secagem pelo AX Infra">
           </div>
         </div>
       </article>
@@ -282,13 +289,9 @@
         </div>
 
         <div class="card-solucao__midia">
-          <!-- ASSET PENDENTE: pesadora em operação (cliente tem fotos de 1 e 2 canais) -->
-          <div class="ph" style="--ar: 4 / 3;">
-            <span class="ph__icone">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="m3 17 5-4 4 3 3-2 6 5"/></svg>
-            </span>
-            <span class="ph__dim">1200 × 900 px</span>
-            <span class="ph__desc">Pesadora semiautomática AxPack em operação</span>
+          <div class="midia" style="--ar: 16 / 9;">
+            <img src="assets/img/pesadora.jpg" width="1200" height="675" loading="lazy" decoding="async"
+                 alt="Pesadora AxPack em operação: painel de controle com a marca AX PACK e operadores embalando limões">
           </div>
         </div>
       </article>
@@ -315,13 +318,9 @@
       </p>
 
       <div style="margin-top: var(--sp-10);">
-        <!-- ASSET PENDENTE: foto da fachada ou do chão de fábrica -->
-        <div class="ph" style="--ar: 16 / 9;">
-          <span class="ph__icone">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="m3 17 5-4 4 3 3-2 6 5"/></svg>
-          </span>
-          <span class="ph__dim">1280 × 720 px</span>
-          <span class="ph__desc">Fachada da indústria ou chão de fábrica em Matão/SP</span>
+        <div class="midia" style="--ar: 16 / 9;">
+          <img src="assets/img/fachada.jpg" width="1200" height="675" loading="lazy" decoding="async"
+               alt="Fachada da AxPack em Matão/SP com o letreiro AX PACK Máquinas e Embalagens">
         </div>
       </div>
     </div>
@@ -399,26 +398,28 @@
     </div>
 
     <div class="galeria__grid reveal">
-      <!-- ASSETS PENDENTES: acervo de fotos confirmado pelo cliente no kickoff -->
-      <div class="ph" style="--ar: 1 / 1;">
-        <span class="ph__dim">1200 × 1200 px</span>
-        <span class="ph__desc">Destaque: linha de secagem AX Infra completa</span>
+      <!-- Ordem importa: o CSS aplica grid-column/row: span 2 só no :first-child,
+           então o item de destaque (1:1) precisa ser sempre o primeiro. -->
+
+      <div class="midia" style="--ar: 1 / 1;">
+        <img src="assets/img/galeria-destaque.jpg" width="1200" height="1200" loading="lazy" decoding="async"
+             alt="Vista geral da linha de beneficiamento de batata, com as duas esteiras de lavagem e seleção">
       </div>
-      <div class="ph" style="--ar: 4 / 3;">
-        <span class="ph__dim">800 × 600 px</span>
-        <span class="ph__desc">Pesadora em operação</span>
+      <div class="midia" style="--ar: 4 / 3;">
+        <img src="assets/img/galeria-equipe-selecao.jpg" width="1000" height="750" loading="lazy" decoding="async"
+             alt="Equipe técnica na linha de seleção manual de batata">
       </div>
-      <div class="ph" style="--ar: 4 / 3;">
-        <span class="ph__dim">800 × 600 px</span>
-        <span class="ph__desc">Detalhe das lâmpadas infravermelhas</span>
+      <div class="midia" style="--ar: 4 / 3;">
+        <img src="assets/img/galeria-pesadora-acao.jpg" width="1000" height="750" loading="lazy" decoding="async"
+             alt="Pesadora AxPack em operação, elevando laranjas até o funil de pesagem">
       </div>
-      <div class="ph" style="--ar: 4 / 3;">
-        <span class="ph__dim">800 × 600 px</span>
-        <span class="ph__desc">Chão de fábrica / montagem</span>
+      <div class="midia" style="--ar: 4 / 3;">
+        <img src="assets/img/galeria-lampadas-infravermelhas.jpg" width="1000" height="750" loading="lazy" decoding="async"
+             alt="Detalhe das lâmpadas infravermelhas acesas do sistema de secagem">
       </div>
-      <div class="ph" style="--ar: 4 / 3;">
-        <span class="ph__dim">800 × 600 px</span>
-        <span class="ph__desc">Equipe técnica em instalação</span>
+      <div class="midia" style="--ar: 4 / 3;">
+        <img src="assets/img/galeria-citros-linha.jpg" width="1000" height="750" loading="lazy" decoding="async"
+             alt="Linha de seleção automática de laranjas e tangerinas por canais">
       </div>
     </div>
 

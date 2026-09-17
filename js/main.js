@@ -40,7 +40,25 @@
 
 
   /* ----------------------------------------------------------------------
-     2. REVEAL NO SCROLL
+     2. VÍDEO DA HERO — respeita prefers-reduced-motion
+     O <video> já tem autoplay+muted no HTML (permitido pelos navegadores sem
+     precisar de JS, então funciona mesmo sem este arquivo). Aqui só cobrimos
+     o caso que o HTML sozinho não resolve: parar o loop para quem pediu
+     menos movimento.
+     ---------------------------------------------------------------------- */
+
+  var heroVideo = document.querySelector('[data-hero-video]');
+
+  if (heroVideo && reduzirMovimento) {
+    heroVideo.removeAttribute('autoplay');
+    heroVideo.pause();
+    // currentTime = 0 garante o pôster/primeiro frame, não um frame do meio
+    heroVideo.currentTime = 0;
+  }
+
+
+  /* ----------------------------------------------------------------------
+     3. REVEAL NO SCROLL
      ---------------------------------------------------------------------- */
 
   var alvos = document.querySelectorAll('.reveal');
@@ -65,7 +83,7 @@
 
 
   /* ----------------------------------------------------------------------
-     3. ACORDEÃO — mantém apenas um item aberto por grupo
+     4. ACORDEÃO — mantém apenas um item aberto por grupo
      ---------------------------------------------------------------------- */
 
   var grupos = document.querySelectorAll('[data-acordeao]');
@@ -85,7 +103,7 @@
 
 
   /* ----------------------------------------------------------------------
-     4. FORMULÁRIO — protótipo
+     5. FORMULÁRIO — protótipo
      Sem back-end. Impede o envio e confirma visualmente.
      Substituir por integração real (endpoint, CRM ou e-mail) na implementação.
      ---------------------------------------------------------------------- */

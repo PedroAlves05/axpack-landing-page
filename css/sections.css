@@ -300,7 +300,12 @@
   align-items: center;
 }
 @media (min-width: 1024px) {
-  .hero__grid { grid-template-columns: 1.05fr 0.95fr; }
+  /* Vídeo maior sem alargar a seção: o container continua em 1240px (padrão).
+     Só a PROPORÇÃO interna mudou — antes 1.05/0.95 (texto maior), agora
+     0.7/1.3 (mídia domina). O resultado prático é quase idêntico a alargar
+     o container (vídeo ~751px vs ~775px na tentativa anterior com
+     .container--wide), então alargar a seção nunca foi necessário. */
+  .hero__grid { grid-template-columns: 0.9fr 1.1fr; }
 }
 
 /* Eyebrow no lugar dos 3 selos empilhados: devolve o topo ao H1.
@@ -391,6 +396,13 @@
 
 /* moldura da mídia do hero */
 .hero__midia { position: relative; }
+/* Vale para os dois: enquanto for placeholder (.ph) e depois da foto entrar
+   (.midia). Assim trocar um pelo outro não exige mexer aqui. */
+.hero__midia .midia {
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-xl);
+}
+
 .hero__midia .ph {
   border-radius: var(--r-xl);
   border-color: rgba(255, 255, 255, 0.24);
@@ -405,15 +417,23 @@
 .hero__midia .ph__icone { color: rgba(255, 255, 255, 0.72); }
 
 /* cartão flutuante sobre a mídia */
+/* Legenda flutuante sobre a foto.
+   Com placeholder ela podia ser larga — não havia nada para cobrir. Com a foto
+   real do túnel, encolheu e desceu: sangra mais para fora do quadro e deixa as
+   lâmpadas, que são o assunto da imagem, totalmente visíveis.
+
+   Nota: o valor antigo era clamp(-1rem, -2vw, -2rem). Como o mínimo (-1rem) é
+   MAIOR que o máximo (-2rem), o clamp devolvia sempre -1rem e a parte fluida
+   nunca entrava. Com negativos, o mínimo é o mais negativo. */
 .hero__cartao {
   position: absolute;
-  left: clamp(-1rem, -2vw, -2rem);
-  bottom: clamp(-1.25rem, -2vw, -2rem);
+  left: clamp(-3.5rem, -2.5vw, -1.5rem);
+  bottom: clamp(-3rem, -2vw, -1.5rem);
   display: flex;
   align-items: center;
-  gap: var(--sp-4);
-  max-width: 300px;
-  padding: var(--sp-5) var(--sp-6);
+  gap: var(--sp-3);
+  max-width: 264px;
+  padding: var(--sp-4) var(--sp-5);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--r-lg);
   background: rgba(4, 20, 42, 0.88);
@@ -513,7 +533,8 @@
   gap: var(--sp-4);
 }
 
-.card-solucao__midia .ph { border-radius: var(--r-md); }
+.card-solucao__midia .ph,
+.card-solucao__midia .midia { border-radius: var(--r-md); }
 
 
 /* ==========================================================================
@@ -578,10 +599,12 @@
   gap: var(--sp-4);
   grid-template-columns: repeat(2, 1fr);
 }
-/* Os placeholders preenchem a célula — o mosaico define a altura.
+/* Placeholders e fotos reais preenchem a célula — o mosaico define a altura.
    width E height explícitos: com apenas height:100%, o aspect-ratio derivaria
-   uma largura maior que a coluna quando a linha fica alta. */
-.galeria__grid .ph { width: 100%; height: 100%; }
+   uma largura maior que a coluna quando a linha fica alta. Vale para .midia
+   tanto quanto para .ph — mesma armadilha, mesma correção. */
+.galeria__grid .ph,
+.galeria__grid .midia { width: 100%; height: 100%; }
 
 @media (min-width: 900px) {
   .galeria__grid {

@@ -288,6 +288,36 @@
 
 
 /* ==========================================================================
+   MÍDIA — imagem real no lugar do placeholder
+
+   Espelha o .ph de propósito: mesma reserva de proporção via --ar, mesmo
+   comportamento em grid. Trocar um pelo outro não mexe no layout.
+
+   O object-fit: cover é o que permite usar a mesma proporção em cards cujas
+   fotos vieram em formatos diferentes (16:9 e 4:3) sem distorcer nada.
+   ========================================================================== */
+
+.midia {
+  position: relative;
+  aspect-ratio: var(--ar, 16 / 9);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  /* cor de espera enquanto a imagem carrega — evita o flash branco */
+  background: var(--surface-sunken);
+}
+
+.midia img,
+.midia video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tema-escuro .midia { background: rgba(255, 255, 255, 0.04); }
+
+
+/* ==========================================================================
    CARD BASE
    ========================================================================== */
 
