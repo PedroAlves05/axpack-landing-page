@@ -177,9 +177,12 @@
 
 .hero {
   position: relative;
-  /* puxa o conteúdo para trás do header sticky transparente */
-  margin-top: -84px;
-  padding-top: calc(84px + clamp(2.5rem, 5vw, 5rem));
+  /* Puxa o conteúdo para trás do header sticky transparente.
+     85px = 84px de altura do header + 1px do border-bottom dele. Com -84px
+     sobrava exatamente a linha da borda entre o topbar e a hero, que
+     aparecia como um fio branco de 1px atravessando a tela. */
+  margin-top: -85px;
+  padding-top: calc(85px + clamp(2.5rem, 5vw, 5rem));
   padding-bottom: clamp(2.5rem, 5vw, 5rem);
   background: var(--grad-dark);
   color: var(--n-0);
@@ -393,6 +396,86 @@
   color: var(--n-0);
   margin-bottom: 2px;
 }
+
+/* ==========================================================================
+   HERO EM COLUNA ÚNICA COM VÍDEO DE FUNDO — variante de teste (.hero--video)
+
+   Não substitui nada das regras acima: só acrescenta a camada -4 (o vídeo) e
+   centraliza a coluna. A malha (-3) e os gradientes azuis + luz verde (-2)
+   continuam valendo exatamente como na hero de duas colunas — é daí que vem
+   a cor da seção, que por isso não mudou.
+   ========================================================================== */
+
+.hero--video {
+  display: grid;
+  align-content: center;
+  min-height: min(90vh, 820px);
+}
+
+/* camada -4: abaixo da malha e dos gradientes */
+.hero--video .hero__fundo {
+  position: absolute;
+  inset: 0;
+  z-index: -4;
+  overflow: hidden;
+}
+.hero--video .hero__fundo video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Véu de contraste sobre o vídeo.
+   Os matizes são os mesmos três de --grad-dark (navy-700 → #061C3C →
+   navy-950), só que com alpha — é o que mantém a seção na cor de hoje.
+   Ele é necessário: o vídeo tem batatas claras e lâmpadas acesas, e o
+   gradiente da camada -2 sozinho é parcial demais (nasce e morre em
+   transparent) para garantir o contraste do texto branco. */
+.hero--video .hero__fundo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    /* mancha mais fechada atrás da coluna de texto — é onde o contraste
+       precisa ser garantido. Nas bordas o véu abre e o vídeo aparece. */
+    radial-gradient(62% 56% at 50% 46%,
+      rgba(4, 20, 42, 0.80) 0%,
+      rgba(4, 20, 42, 0.58) 55%,
+      rgba(4, 20, 42, 0.12) 100%),
+    /* véu de base, nos mesmos três matizes de --grad-dark (navy-700 →
+       #061C3C → navy-950): é o que mantém a seção na cor de hoje */
+    linear-gradient(172deg,
+      rgba(11, 46, 92, 0.42) 0%,
+      rgba(6, 28, 60, 0.52) 46%,
+      rgba(2, 11, 24, 0.72) 100%);
+}
+
+/* a coluna única */
+.hero--video .hero__centro {
+  max-width: 60rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.hero--video .hero__texto  { margin-inline: auto; }
+.hero--video .hero__acoes  { justify-content: center; }
+
+/* As credenciais continuam alinhadas à esquerda dentro de cada item: são
+   ícone + duas linhas de texto, e centralizá-las deixaria o ícone solto
+   em cima de um bloco torto. O grid delas é que fica centrado na seção. */
+.hero--video .hero__credenciais { text-align: left; }
+
+/* As credenciais sobem de 55% para 72% de branco SÓ nesta variante.
+   Sobre o fundo sólido da hero antiga, 55% passava folgado; sobre o vídeo
+   não passa — esta faixa fica na parte baixa da hero, onde o véu é mais
+   fraco e as batatas claras do vídeo aparecem. Medido em 4 momentos do
+   vídeo: 3,64 a 4,04:1 com 55% (abaixo do mínimo AA de 4,5:1) contra
+   6,03:1 com 72%.
+
+   O eyebrow NÃO precisa disso e ficou no tom original: no alto da hero o
+   véu é mais fechado, e ele mede 4,76 a 4,83:1 com 55% — passa, embora
+   com margem curta. Se o véu for aberto de novo, ele é o próximo a cair. */
+.hero--video .hero__credencial { color: var(--text-inverse-muted); }
 
 /* moldura da mídia do hero */
 .hero__midia { position: relative; }
