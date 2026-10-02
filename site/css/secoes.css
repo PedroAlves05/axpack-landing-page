@@ -1,0 +1,1527 @@
+/* ==========================================================================
+   AX PACK — SITE · SEÇÕES
+   Blocos de conteúdo reaproveitáveis entre as páginas do site.
+   Os que vieram da LP mantêm o mesmo nome de classe e o mesmo visual.
+   ========================================================================== */
+
+
+.catalogo__grid > *,
+.catalogo__linhas > *,
+.empresa__grid > *,
+.galeria__grid > *,
+.suporte__grid > *,
+.blog-lista__grid > *,
+.contato__grid > * { min-width: 0; }
+
+
+/* ==========================================================================
+   CABEÇALHO DE SEÇÃO EM LINHA — título à esquerda, link "ver todos" à
+   direita. É o padrão da Baldan nas seções de catálogo e de notícias.
+   ========================================================================== */
+
+.secao-head--linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  max-width: none;
+}
+.secao-head--linha > div { max-width: 760px; }
+
+
+/* ==========================================================================
+   HERO COM VÍDEO DE FUNDO — a mesma da LP (CLAUDE.md §16), mesmas camadas
+   e o mesmo véu. Só a hero de duas colunas antiga ficou de fora.
+     -4  vídeo + véu de contraste
+     -3  malha técnica
+     -2  gradientes azuis + a luz verde
+      0  conteúdo
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  /* 85px = 84px do header + 1px da borda dele (ver §8.2.3) */
+  margin-top: -85px;
+  padding-top: calc(85px + clamp(2.5rem, 5vw, 5rem));
+  padding-bottom: clamp(2.5rem, 5vw, 5rem);
+  background: var(--grad-dark);
+  color: var(--n-0);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  mask-image: radial-gradient(ellipse 100% 78% at 50% 34%, #000 30%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 78% at 50% 34%, #000 30%, transparent 78%);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(46rem 28rem at 6% 0%,    rgba(32, 96, 208, 0.34), transparent 60%),
+    radial-gradient(44rem 30rem at 98% 100%, rgba(3, 15, 32, 0.95),   transparent 66%),
+    radial-gradient(10rem 15rem at 100% 26%, var(--luz-verde), transparent 72%),
+    radial-gradient(26rem 30rem at 104% 30%, rgba(143, 229, 0, 0.07), transparent 70%);
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  .hero::after {
+    background:
+      radial-gradient(34rem 22rem at 4% 0%,    rgba(32, 96, 208, 0.32), transparent 62%),
+      radial-gradient(30rem 26rem at 98% 100%, rgba(3, 15, 32, 0.95),   transparent 66%),
+      radial-gradient(6rem 8rem  at 100% 5%,   var(--luz-verde),        transparent 72%),
+      radial-gradient(15rem 16rem at 106% 6%,  rgba(143, 229, 0, 0.06), transparent 70%);
+  }
+}
+
+.hero--video {
+  display: grid;
+  align-content: center;
+  min-height: min(90vh, 820px);
+}
+
+.hero__fundo {
+  position: absolute;
+  inset: 0;
+  z-index: -4;
+  overflow: hidden;
+}
+.hero__fundo video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Véu — valores escolhidos pelo cliente. A versão mais aberta foi
+   rejeitada (§16). Mexer aqui exige medir o contraste de novo. */
+.hero__fundo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(62% 56% at 50% 46%,
+      rgba(4, 20, 42, 0.80) 0%,
+      rgba(4, 20, 42, 0.58) 55%,
+      rgba(4, 20, 42, 0.12) 100%),
+    linear-gradient(172deg,
+      rgba(11, 46, 92, 0.42) 0%,
+      rgba(6, 28, 60, 0.52) 46%,
+      rgba(2, 11, 24, 0.72) 100%);
+}
+
+.hero__centro {
+  max-width: 60rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-inverse-soft);
+}
+.hero__eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 2px;
+  flex: none;
+  background: var(--ax-green-400);
+}
+
+.hero__titulo {
+  font-size: var(--fs-hero);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.03em;
+  color: var(--n-0);
+}
+.hero__titulo .destaque {
+  background: var(--grad-realce);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+
+.hero__texto {
+  max-width: 54ch;
+  margin: var(--sp-6) auto 0;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-relaxed);
+  color: var(--text-inverse-muted);
+}
+
+.hero__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-4);
+  margin-top: var(--sp-10);
+}
+
+.hero__credenciais {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: var(--sp-5) var(--sp-8);
+  margin-top: var(--sp-10);
+  padding-top: var(--sp-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.hero__credencial {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  font-size: var(--fs-xs);
+  line-height: 1.45;
+  /* 72% e não 55%: sobre o vídeo, 55% fica abaixo de AA (§16) */
+  color: var(--text-inverse-muted);
+}
+.hero__credencial svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
+  margin-top: 1px;
+  color: var(--ax-blue-300);
+}
+.hero__credencial strong {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--n-0);
+  margin-bottom: 2px;
+}
+
+
+/* ==========================================================================
+   CATÁLOGO — as linhas de produto
+   Duas principais lado a lado, com foto e o mesmo peso; as duas
+   secundárias embaixo, compactas e sem foto.
+   ========================================================================== */
+
+.catalogo__grid {
+  display: grid;
+  gap: var(--sp-6);
+}
+@media (min-width: 900px) {
+  .catalogo__grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* O card inteiro é clicável: o link do título estica um ::after sobre ele.
+   Assim o clique funciona em qualquer ponto, e o leitor de tela continua
+   anunciando um único link com o nome do produto. */
+.card-produto { isolation: isolate; }
+.link-esticado { color: inherit; }
+.link-esticado::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.link-esticado:hover { color: inherit; }
+/* o foco vai para o card inteiro, que é a área clicável */
+.link-esticado:focus-visible { outline: none; }
+.link-esticado:focus-visible::after {
+  outline: 3px solid var(--ax-blue-400);
+  outline-offset: -3px;
+  border-radius: inherit;
+}
+
+.card-produto .midia { border-radius: 0; }
+.card-produto .midia img { transition: transform var(--dur-slow) var(--ease-out); }
+.card-produto:hover .midia img { transform: scale(1.03); }
+
+.card-produto__corpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: clamp(1.5rem, 2.6vw, 2.25rem);
+}
+
+.card-produto__rotulo {
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.card-produto__titulo { font-size: var(--fs-h3); margin-bottom: var(--sp-4); }
+
+.card-produto__resumo {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--sp-6);
+}
+
+.card-produto .lista-check { margin-bottom: var(--sp-8); }
+
+.card-produto__acao { margin-top: auto; }
+.card:hover .link-seta svg { transform: translateX(4px); }
+
+/* territórios de cor — os mesmos dos cards da LP */
+.card-produto--infra {
+  border-color: color-mix(in srgb, var(--ir-500) 26%, var(--border));
+  background:
+    radial-gradient(34rem 20rem at 100% 100%, rgba(255, 106, 26, 0.09), transparent 62%),
+    var(--surface-raised);
+}
+.card-produto--infra .card-produto__rotulo,
+.card-produto--infra .link-seta { color: var(--ir-500); }
+.card-produto--infra:hover { border-color: color-mix(in srgb, var(--ir-500) 50%, var(--border)); box-shadow: var(--glow-ir); }
+
+.card-produto--pesagem {
+  border-color: color-mix(in srgb, var(--ax-blue-500) 30%, var(--border));
+  background:
+    radial-gradient(34rem 20rem at 100% 100%, rgba(32, 96, 208, 0.08), transparent 62%),
+    var(--surface-raised);
+}
+.card-produto--pesagem:hover { border-color: color-mix(in srgb, var(--ax-blue-500) 50%, var(--border)); box-shadow: var(--glow-blue); }
+
+.card-produto { transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease); }
+.card-produto:hover { transform: translateY(-4px); }
+
+/* --- linhas secundárias --- */
+.catalogo__linhas {
+  display: grid;
+  gap: var(--sp-6);
+  margin-top: var(--sp-6);
+}
+@media (min-width: 900px) {
+  .catalogo__linhas { grid-template-columns: 1fr 1fr; }
+}
+
+.card-linha {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-5);
+  align-items: start;
+  padding: clamp(1.25rem, 2.2vw, 1.75rem);
+  isolation: isolate;
+}
+.card-linha:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: var(--sh-lg);
+}
+.card-linha h3 { font-size: var(--fs-h4); margin-bottom: var(--sp-2); }
+.card-linha p { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--sp-4); }
+/* .card-linha p é mais específico que o rótulo e o deixaria cinza e grande */
+.card-linha .card-produto__rotulo {
+  margin-bottom: var(--sp-2);
+  font-size: var(--fs-eyebrow);
+  color: var(--accent);
+}
+
+
+/* ==========================================================================
+   A EMPRESA — texto institucional + foto + pilares (2 x 2 a partir de 640px)
+   ========================================================================== */
+
+.empresa__grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+@media (min-width: 1024px) { .empresa__grid { grid-template-columns: 1.05fr 0.95fr; } }
+
+.empresa__texto .lead { margin-top: var(--sp-5); }
+
+.empresa__pilares {
+  display: grid;
+  gap: var(--sp-6) var(--sp-8);
+  margin-block: var(--sp-10);
+}
+@media (min-width: 640px) { .empresa__pilares { grid-template-columns: 1fr 1fr; } }
+.pilar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-4);
+  align-items: start;
+}
+.pilar h3 { font-size: var(--fs-h4); margin-bottom: var(--sp-1); }
+.pilar p { font-size: var(--fs-sm); color: var(--text-muted); }
+
+.empresa__midia .midia { border-radius: var(--r-xl); box-shadow: var(--sh-lg); }
+
+
+/* ==========================================================================
+   GALERIA — mesma da LP
+   ========================================================================== */
+
+.galeria { background: var(--surface-sunken); }
+
+.galeria__grid {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: repeat(2, 1fr);
+}
+.galeria__grid .ph,
+.galeria__grid .midia { width: 100%; height: 100%; }
+
+@media (min-width: 900px) {
+  .galeria__grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: clamp(155px, 15vw, 225px);
+  }
+  .galeria__grid > *:first-child { grid-column: span 2; grid-row: span 2; }
+}
+
+
+/* ==========================================================================
+   CARDS DE SUPORTE — grade de 4 (assistência e garantia em "A Ax Pack")
+   ========================================================================== */
+
+.suporte__grid {
+  display: grid;
+  gap: var(--sp-5);
+}
+@media (min-width: 640px)  { .suporte__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .suporte__grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 900px)  { .suporte__grid--3 { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1100px) { .suporte__grid--3 { grid-template-columns: repeat(3, 1fr); } }
+
+.card-suporte {
+  padding: clamp(1.5rem, 2.2vw, 1.75rem);
+  isolation: isolate;
+}
+.card-suporte:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: var(--sh-lg);
+}
+.card-suporte .icone-box { margin-bottom: var(--sp-6); }
+.card-suporte h3 { font-size: var(--fs-h4); margin-bottom: var(--sp-3); }
+.card-suporte p { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--sp-6); }
+.card-suporte .link-seta { margin-top: auto; }
+
+
+/* ==========================================================================
+   BLOG — últimas publicações (o cliente pediu uma seção de novidades)
+   ========================================================================== */
+
+
+.blog-lista__grid {
+  display: grid;
+  gap: var(--sp-6);
+}
+/* grid-auto-rows: 1fr — todas as fileiras com a mesma altura, cards padronizados */
+@media (min-width: 768px)  { .blog-lista__grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; } }
+
+.card-post { isolation: isolate; }
+.card-post:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-lg);
+}
+.card-post .ph { border-radius: 0; border-width: 0 0 1.5px; }
+.card-post__corpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--sp-3);
+  padding: var(--card-pad);
+}
+.card-post__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-xs);
+  color: var(--text-soft);
+}
+.card-post__categoria {
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.card-post h3 { font-size: var(--fs-h4); line-height: var(--lh-snug); }
+.card-post .link-seta { margin-top: auto; padding-top: var(--sp-3); }
+
+/* marca de rascunho nos cards de exemplo */
+.rascunho {
+  display: inline-block;
+  padding: 2px var(--sp-2);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--r-xs);
+  font-size: var(--fs-xs);
+  color: var(--text-soft);
+}
+
+
+/* ==========================================================================
+   ORÇAMENTO — mesma seção da LP. Fecha todas as páginas: o site é
+   "voltado para formulário" (kickoff), e o CTA do header aponta para cá.
+   ========================================================================== */
+
+.contato {
+  position: relative;
+  background: var(--grad-dark);
+  overflow: hidden;
+  isolation: isolate;
+}
+.contato::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(42rem 26rem at 4% 8%,  rgba(32, 96, 208, 0.40), transparent 62%),
+    radial-gradient(30rem 20rem at 78% 96%, rgba(11, 46, 92, 0.85), transparent 70%),
+    radial-gradient(9rem 9rem at 97% 4%, var(--luz-verde), transparent 72%);
+  pointer-events: none;
+}
+
+.contato__grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+/* formulário com largura fixa máxima (~512px): antes era 1.1fr e ocupava
+   mais da metade da tela, com campos largos demais para o que pedem */
+@media (min-width: 1024px) { .contato__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 32rem); } }
+
+.contato__info .lista-check { margin-top: var(--sp-8); }
+.contato__info .lista-check li { color: var(--text-inverse-muted); }
+.contato__info .lista-check strong { color: var(--n-0); }
+
+.contato__canais {
+  display: grid;
+  gap: var(--sp-4);
+  margin-top: var(--sp-10);
+  padding-top: var(--sp-8);
+  border-top: 1px solid var(--border);
+}
+.contato__canal {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  color: var(--text-inverse-muted);
+}
+.contato__canal:hover { color: var(--n-0); }
+.contato__canal strong { display: block; color: var(--n-0); font-size: var(--fs-sm); }
+.contato__canal span { font-size: var(--fs-xs); color: var(--text-inverse-soft); }
+.contato__canal .icone-box { color: var(--ax-green-400); border-color: rgba(255, 255, 255, 0.22); }
+
+.contato__form {
+  padding: clamp(1.25rem, 2.4vw, 2rem);
+  border-radius: var(--r-xl);
+  background: var(--n-0);
+  box-shadow: var(--sh-xl);
+  color: var(--n-900);
+  --text: var(--n-900);
+  --text-muted: var(--n-600);
+  --text-soft: var(--n-500);
+  --surface: var(--n-0);
+  --surface-sunken: var(--n-50);
+  --border: var(--n-200);
+  --border-strong: var(--n-300);
+  --accent: var(--ax-blue-500);
+}
+.contato__form h3 { margin-bottom: var(--sp-2); }
+.contato__form > p { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--sp-6); }
+.contato__form .btn--grande { padding-block: var(--sp-4); }
+
+.form__nota {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-xs);
+  color: var(--text-soft);
+  text-align: center;
+}
+
+
+/* ##########################################################################
+   BLOCOS DO SITE — Home (v2), Soluções, A Ax Pack e Contato
+   ########################################################################## */
+
+.resultado > *,
+.segmentos__grid > *,
+.processo__passos > *,
+.fatos > *,
+.contato-pagina__grid > *,
+.solucoes__lista > * { min-width: 0; }
+
+
+/* ==========================================================================
+   SEÇÃO ESCURA GENÉRICA — mesmo fundo da seção de orçamento, com a luz
+   verde única presa à borda (regra do verde, §6.1)
+   ========================================================================== */
+
+.secao--escura {
+  position: relative;
+  background: var(--grad-dark);
+  overflow: hidden;
+  isolation: isolate;
+}
+.secao--escura::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(42rem 26rem at 100% 0%, rgba(32, 96, 208, 0.30), transparent 62%),
+    radial-gradient(30rem 22rem at 10% 100%, rgba(11, 46, 92, 0.85), transparent 70%),
+    radial-gradient(9rem 10rem at 0% 88%, var(--luz-verde), transparent 72%);
+  pointer-events: none;
+}
+.secao--escura .lead { color: var(--text-inverse-muted); }
+
+
+/* ==========================================================================
+   RESULTADO NA OPERAÇÃO — título à esquerda, benefícios empilhados à direita
+   O título gruda ao rolar (desktop) enquanto os três cards passam ao lado.
+   (Uma linha "Vem de" com chips das soluções chegou a existir em cada card;
+   a equipe pediu para tirar.)
+   Tentativas anteriores, rejeitadas: 3 colunas soltas com checks; painel
+   único dividido em 3 com listas de linhas finas.
+   ========================================================================== */
+
+.resultado {
+  display: grid;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .resultado { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
+  .resultado__texto { position: sticky; top: 120px; }
+}
+.resultado__texto .lead { margin-top: var(--sp-5); }
+.resultado__texto .btn { margin-top: var(--sp-8); }
+
+.resultado__lista { display: grid; gap: var(--sp-4); }
+
+.beneficio {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--sp-5);
+  padding: clamp(1.25rem, 2.4vw, 1.75rem);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--sh-xs);
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease);
+}
+.beneficio:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--ax-blue-500) 35%, var(--border));
+  box-shadow: var(--sh-md);
+}
+
+.beneficio__icone {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r-md);
+  background: var(--grad-blue);
+  color: var(--n-0);
+  box-shadow: 0 8px 20px rgba(32, 96, 208, 0.28);
+}
+.beneficio__icone svg { width: 26px; height: 26px; }
+
+.beneficio__rotulo {
+  margin-bottom: var(--sp-1);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ax-blue-500);
+}
+.beneficio h3 { margin-bottom: var(--sp-2); }
+.beneficio__texto { font-size: var(--fs-sm); color: var(--text-muted); }
+
+@media (max-width: 479px) {
+  .beneficio { grid-template-columns: 1fr; gap: var(--sp-4); }
+  .beneficio__icone { width: 48px; height: 48px; }
+}
+
+
+/* ==========================================================================
+   SEGMENTOS — para quem a Ax Pack trabalha
+   ========================================================================== */
+
+.segmentos__grid {
+  display: grid;
+  gap: var(--sp-5);
+}
+@media (min-width: 900px) { .segmentos__grid { grid-template-columns: repeat(3, 1fr); } }
+
+.card-segmento { padding: clamp(1.5rem, 2.4vw, 2rem); }
+.card-segmento .icone-box { margin-bottom: var(--sp-6); }
+.card-segmento h3 { margin-bottom: var(--sp-3); }
+.card-segmento > p { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--sp-6); }
+
+.card-segmento__indicado {
+  margin-top: auto;
+  padding-top: var(--sp-5);
+  border-top: 1px dashed var(--border);
+}
+.rotulo-mini {
+  display: block;
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+/* --- chips --- */
+.chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-3);
+  border: 1px solid color-mix(in srgb, var(--ax-blue-500) 30%, var(--border));
+  border-radius: var(--r-full);
+  background: var(--ax-blue-50);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--ax-blue-700);
+  white-space: nowrap;
+}
+a.chip:hover { border-color: var(--ax-blue-500); color: var(--ax-blue-800); }
+.chip--infra {
+  border-color: color-mix(in srgb, var(--ir-500) 35%, var(--border));
+  background: color-mix(in srgb, var(--ir-500) 9%, var(--n-0));
+  color: var(--ir-700);
+}
+a.chip--infra:hover { border-color: var(--ir-500); color: var(--ir-700); }
+.chip--neutro {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  padding: var(--sp-2) var(--sp-4);
+}
+
+/* ==========================================================================
+   COMO TRABALHAMOS — passos numerados sobre fundo escuro
+   ========================================================================== */
+
+.processo__passos {
+  display: grid;
+  gap: var(--sp-10) var(--sp-8);
+  counter-reset: passo;
+}
+@media (min-width: 640px)  { .processo__passos { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .processo__passos { grid-template-columns: repeat(4, 1fr); } }
+
+.passo {
+  position: relative;
+  padding-top: var(--sp-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  counter-increment: passo;
+}
+.passo::before {
+  content: counter(passo, decimal-leading-zero);
+  display: block;
+  margin-bottom: var(--sp-4);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-black);
+  line-height: 1;
+  color: var(--ax-blue-300);
+}
+.passo h3 { color: var(--n-0); margin-bottom: var(--sp-3); }
+.passo p { font-size: var(--fs-sm); color: var(--text-inverse-muted); }
+
+
+/* ==========================================================================
+   TOPO DE PÁGINA INTERNA — faixa escura com migalhas, título e resumo.
+   Mesmas camadas de cor da hero, sem o vídeo. Sobe por trás do header
+   transparente com os mesmos 85px (§8.2.3).
+   ========================================================================== */
+
+.pagina-topo {
+  position: relative;
+  margin-top: -85px;
+  padding-top: calc(85px + clamp(2.75rem, 6vw, 5rem));
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  background: var(--grad-dark);
+  color: var(--n-0);
+  overflow: hidden;
+  isolation: isolate;
+}
+.pagina-topo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  mask-image: radial-gradient(ellipse 90% 90% at 30% 20%, #000 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 90% at 30% 20%, #000 30%, transparent 80%);
+}
+.pagina-topo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(46rem 28rem at 6% 0%,    rgba(32, 96, 208, 0.34), transparent 60%),
+    radial-gradient(44rem 30rem at 98% 100%, rgba(3, 15, 32, 0.95),   transparent 66%),
+    radial-gradient(9rem 12rem at 100% 30%,  var(--luz-verde),        transparent 72%),
+    radial-gradient(24rem 26rem at 104% 32%, rgba(143, 229, 0, 0.07), transparent 70%);
+  pointer-events: none;
+}
+
+.pagina-topo__conteudo { max-width: 52rem; margin-inline: auto; text-align: center; }
+.pagina-topo h1 { color: var(--n-0); }
+.pagina-topo .lead { margin: var(--sp-5) auto 0; max-width: 62ch; color: var(--text-inverse-muted); }
+
+.migalhas { margin-bottom: var(--sp-8); }
+.migalhas ol {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-xs);
+  color: var(--text-inverse-muted);
+}
+.migalhas li + li::before {
+  content: "/";
+  margin-right: var(--sp-2);
+  color: var(--text-inverse-soft);
+}
+.migalhas a { color: var(--text-inverse-muted); }
+.migalhas a:hover { color: var(--n-0); }
+.migalhas [aria-current] { color: var(--n-0); font-weight: var(--fw-semibold); }
+
+/* atalhos para as seções da página */
+.atalhos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+}
+.atalho {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--n-0);
+}
+.atalho:hover { background: rgba(255, 255, 255, 0.10); border-color: rgba(255, 255, 255, 0.4); color: var(--n-0); }
+.atalho::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: var(--r-full);
+  background: var(--ax-blue-400);
+}
+.atalho--infra::before { background: var(--ir-500); }
+
+
+/* ==========================================================================
+   LISTA DE SOLUÇÕES — linhas de largura total alternando texto e mídia.
+   Mesmo componente dos cards da LP (.card-solucao), com território de cor
+   por produto. O brilho fica do lado da mídia em cada linha.
+   ========================================================================== */
+
+.solucoes__lista { display: grid; gap: var(--sp-8); }
+
+.card-solucao {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 3.25rem);
+  align-items: center;
+  padding: clamp(1.5rem, 3vw, 2.75rem);
+  scroll-margin-top: 96px;
+}
+@media (min-width: 900px) {
+  .card-solucao { grid-template-columns: 1.05fr 0.95fr; }
+  .card-solucao--invertido .card-solucao__texto { order: 2; }
+  .card-solucao--invertido .card-solucao__midia { order: 1; }
+}
+
+.card-solucao--infra {
+  border-color: color-mix(in srgb, var(--ir-500) 26%, var(--border));
+  background:
+    radial-gradient(38rem 22rem at 88% 10%, rgba(255, 106, 26, 0.10), transparent 62%),
+    var(--surface-raised);
+}
+.card-solucao--infra .card-solucao__rotulo { color: var(--ir-600); }
+
+.card-solucao--azul {
+  border-color: color-mix(in srgb, var(--ax-blue-500) 28%, var(--border));
+  background:
+    radial-gradient(38rem 22rem at 88% 10%, rgba(32, 96, 208, 0.09), transparent 62%),
+    var(--surface-raised);
+}
+.card-solucao--azul.card-solucao--invertido {
+  background:
+    radial-gradient(38rem 22rem at 12% 10%, rgba(32, 96, 208, 0.09), transparent 62%),
+    var(--surface-raised);
+}
+
+.card-solucao__rotulo {
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ax-blue-500);
+}
+.card-solucao__titulo { font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem); margin-bottom: var(--sp-4); }
+.card-solucao__resumo { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--sp-6); max-width: 58ch; }
+.card-solucao .lista-check { margin-bottom: var(--sp-8); }
+.card-solucao__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3) var(--sp-6);
+}
+.card-solucao__selo { margin-top: var(--sp-5); }
+
+/* --- os dois modelos de pesadora lado a lado --- */
+.modelos {
+  display: grid;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-8);
+}
+@media (min-width: 520px) { .modelos { grid-template-columns: 1fr 1fr; } }
+
+.modelo {
+  padding: var(--sp-4) var(--sp-5);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+.modelo__nome {
+  margin-bottom: var(--sp-2);
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  color: var(--text);
+}
+.modelo dl { margin: 0; }
+.modelo dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding-block: var(--sp-2);
+  border-top: 1px dashed var(--border);
+  font-size: var(--fs-xs);
+}
+.modelo dt { color: var(--text-soft); }
+.modelo dd { margin: 0; font-weight: var(--fw-semibold); color: var(--text); text-align: right; white-space: nowrap; }
+
+.itens-consumiveis { margin-bottom: var(--sp-8); }
+
+
+/* ==========================================================================
+   GUIA — "qual solução para a sua operação"
+   ========================================================================== */
+
+.guia {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+.guia__cabeca,
+.guia__item {
+  display: grid;
+  gap: var(--sp-2) var(--sp-6);
+  padding: var(--sp-5) clamp(1.25rem, 3vw, 2rem);
+}
+.guia__cabeca {
+  display: none;
+  background: var(--surface-sunken);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.guia__item + .guia__item { border-top: 1px solid var(--border-subtle); }
+.guia__necessidade { font-weight: var(--fw-semibold); color: var(--text); }
+.guia__detalhe { font-size: var(--fs-sm); color: var(--text-muted); }
+.guia__solucao { justify-self: start; }
+
+@media (min-width: 900px) {
+  .guia__cabeca,
+  .guia__item { grid-template-columns: 1.1fr 1fr 0.9fr; align-items: center; }
+  .guia__cabeca { display: grid; }
+}
+
+.inclusos {
+  display: grid;
+  gap: var(--sp-6) var(--sp-8);
+  margin-top: var(--sp-12);
+}
+@media (min-width: 900px) { .inclusos { grid-template-columns: repeat(3, 1fr); } }
+
+
+/* ==========================================================================
+   A AX PACK
+   ========================================================================== */
+
+/* :not(.eyebrow) — sem ele o rótulo da seção ficaria cinza */
+.texto-corrido p:not(.eyebrow) { color: var(--text-muted); }
+.texto-corrido p + p { margin-top: var(--sp-4); }
+
+/* card sem link não reage ao hover */
+.card-suporte:not(:has(.link-esticado)):hover {
+  transform: none;
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+/* --- fatos de engenharia (fundo escuro) --- */
+.fatos {
+  display: grid;
+  gap: var(--sp-5);
+  margin-top: var(--sp-12);
+}
+@media (min-width: 900px) { .fatos { grid-template-columns: repeat(3, 1fr); } }
+
+.fato {
+  padding: clamp(1.5rem, 2.4vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.035);
+}
+.fato .rotulo-mini { color: var(--ax-blue-300); }
+.fato h3 { color: var(--n-0); margin-bottom: var(--sp-3); }
+.fato p { font-size: var(--fs-sm); color: var(--text-inverse-muted); }
+.fato--infra { border-color: rgba(255, 138, 61, 0.30); }
+.fato--infra .rotulo-mini { color: var(--ir-400); }
+
+.secao-acao { margin-top: var(--sp-10); }
+
+/* --- acionar o suporte --- */
+.acionar {
+  display: grid;
+  gap: var(--sp-6);
+  align-items: center;
+  margin-top: var(--sp-8);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid color-mix(in srgb, var(--ax-blue-500) 28%, var(--border));
+  border-radius: var(--r-lg);
+  background: var(--ax-blue-50);
+}
+@media (min-width: 1024px) { .acionar { grid-template-columns: 1fr auto; } }
+.acionar h3 { margin-bottom: var(--sp-2); }
+.acionar p { font-size: var(--fs-sm); color: var(--text-muted); }
+.acionar__botoes { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+
+/* --- parceiro --- */
+.parceiro {
+  display: grid;
+  gap: var(--sp-8);
+  align-items: center;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+@media (min-width: 900px) { .parceiro { grid-template-columns: 0.6fr 1.4fr; } }
+.parceiro h3 { margin-bottom: var(--sp-3); }
+.parceiro p { font-size: var(--fs-sm); color: var(--text-muted); }
+.parceiro .chips { margin-top: var(--sp-5); }
+
+
+/* ==========================================================================
+   CONTATO
+   ========================================================================== */
+
+/* Canais diretos: faixa compacta abaixo do formulário e do mapa, ocupando a
+   largura das duas colunas. Só ícone, nome e contato; o card inteiro é o link. */
+.canais-mini {
+  display: grid;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+}
+@media (min-width: 560px)  { .canais-mini { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .canais-mini { grid-template-columns: repeat(4, 1fr); } }
+
+.canal-mini {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  min-width: 0;
+  padding: var(--sp-4) var(--sp-5);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease), transform var(--dur-base) var(--ease-out);
+}
+.canal-mini:hover {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--ax-blue-500) 45%, var(--border));
+  box-shadow: var(--sh-md);
+  transform: translateY(-2px);
+}
+.canal-mini > span:last-child { min-width: 0; }
+.canal-mini strong {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.canal-mini__valor {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  overflow-wrap: anywhere;
+}
+/* WhatsApp: cor do canal, não da marca (mesma exceção do .btn--whats) */
+.canal-mini--whats { border-color: rgba(34, 193, 94, 0.45); }
+.canal-mini--whats:hover { border-color: #22C15E; }
+.icone-box--whats { background: #22C15E; box-shadow: 0 6px 16px rgba(34, 193, 94, 0.28); }
+
+.contato-pagina { background: var(--surface-sunken); scroll-margin-top: 96px; }
+.contato-pagina__grid {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+@media (min-width: 1024px) { .contato-pagina__grid { grid-template-columns: minmax(0, 34rem) minmax(0, 1fr); } }
+
+.onde {
+  display: grid;
+  gap: var(--sp-6);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+}
+.onde h3 { font-size: var(--fs-h4); margin-bottom: var(--sp-2); }
+.onde address { font-style: normal; font-size: var(--fs-sm); color: var(--text-muted); line-height: var(--lh-normal); }
+.onde__bloco + .onde__bloco { padding-top: var(--sp-6); border-top: 1px solid var(--border); }
+.onde__bloco p { font-size: var(--fs-sm); color: var(--text-muted); }
+.onde .link-seta { margin-top: var(--sp-3); }
+
+.mapa {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+}
+.mapa iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* fundo cinza para alternar seções claras */
+.secao--cinza { background: var(--surface-sunken); }
+
+/* palavra composta que não pode quebrar no hífen (ex.: pós-colheita em títulos) */
+.sem-quebra { white-space: nowrap; }
+
+
+/* ##########################################################################
+   PÁGINAS DE PRODUTO — AX Infra e Pesadoras
+   ########################################################################## */
+
+.vantagens > *,
+.produto-prova > *,
+.modelos-grandes > *,
+.midias-2 > * { min-width: 0; }
+
+
+/* ==========================================================================
+   TOPO DE PRODUTO — o mesmo .pagina-topo centralizado, com ações e selo.
+   Variante com vídeo de fundo (AX Infra): o vídeo entra por baixo das
+   camadas de cor, como na hero da Home (§16), com o mesmo véu.
+   ========================================================================== */
+
+.pagina-topo--video {
+  display: grid;
+  align-content: center;
+  min-height: min(80vh, 720px);
+}
+.pagina-topo .hero__fundo { z-index: -3; }
+
+.pagina-topo__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-4);
+  margin-top: var(--sp-8);
+}
+.pagina-topo__selo { margin-top: var(--sp-6); }
+.pagina-topo .selo--infra {
+  border-color: rgba(255, 138, 61, 0.45);
+  background: rgba(255, 106, 26, 0.14);
+  color: var(--ir-300);
+}
+
+/* realce de título no território infravermelho (só na página do AX Infra) */
+.destaque-ir {
+  background: var(--grad-ir);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+
+
+/* ==========================================================================
+   VANTAGENS / DIFERENCIAIS — ícone + título + texto, em 2 colunas.
+   Funciona em seção clara e escura (lê só tokens semânticos).
+   ========================================================================== */
+
+.vantagens {
+  display: grid;
+  gap: var(--sp-8);
+}
+@media (min-width: 640px) { .vantagens { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .vantagens--3 { grid-template-columns: repeat(3, 1fr); } }
+
+.vantagem {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--sp-4);
+  align-items: start;
+}
+.vantagem h3 { font-size: var(--fs-h4); margin-bottom: var(--sp-1); }
+.vantagem p { font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--text-muted); }
+
+/* foto-prova ao lado das vantagens (termômetro, no AX Infra) */
+.produto-prova {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+}
+@media (min-width: 1024px) { .produto-prova { grid-template-columns: 0.8fr 1.2fr; } }
+
+.figura { margin: 0; }
+.figura .midia { border-radius: var(--r-xl); }
+.figura figcaption {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-xs);
+  color: var(--text-soft);
+}
+
+/* legenda abaixo do vídeo explicativo */
+.midia-legenda {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-xs);
+  color: var(--text-soft);
+}
+
+
+/* ==========================================================================
+   TABELA COMPARATIVA — o componente .tabela-comp já existe; aqui só o
+   respiro e a nota de rodapé.
+   ========================================================================== */
+
+.tabela-nota {
+  margin-top: var(--sp-4);
+  font-size: var(--fs-xs);
+  color: var(--text-soft);
+}
+
+
+/* ==========================================================================
+   MODELOS DE PESADORA — dois cards lado a lado, com a faixa de pesagem
+   em destaque. Lado a lado eles já são a comparação: dispensam tabela.
+   ========================================================================== */
+
+.modelos-grandes {
+  display: grid;
+  gap: var(--sp-6);
+}
+@media (min-width: 900px) { .modelos-grandes { grid-template-columns: 1fr 1fr; } }
+
+.card-modelo { scroll-margin-top: 96px; }
+.card-modelo > .ph,
+.card-modelo > .midia { border-radius: 0; border-width: 0 0 1.5px; }
+
+.card-modelo__corpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: clamp(1.5rem, 2.6vw, 2.25rem);
+}
+.card-modelo__tag {
+  margin-bottom: var(--sp-2);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ax-blue-500);
+}
+.card-modelo h3 { font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem); }
+
+.card-modelo__faixa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-2) var(--sp-3);
+  margin-block: var(--sp-5);
+  padding-block: var(--sp-5);
+  border-block: 1px solid var(--border);
+}
+.card-modelo__faixa strong {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.6rem + 1.6vw, 2.75rem);
+  font-weight: var(--fw-black);
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+  color: var(--ax-blue-500);
+}
+.card-modelo__faixa span { font-size: var(--fs-sm); color: var(--text-soft); }
+
+.card-modelo__indicada {
+  margin-top: var(--sp-5);
+  padding: var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--ax-blue-50);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+.card-modelo__indicada strong { color: var(--ax-blue-700); }
+.card-modelo__acao { margin-top: auto; padding-top: var(--sp-6); }
+
+
+/* ==========================================================================
+   DUAS MÍDIAS LADO A LADO — "em operação"
+   ========================================================================== */
+
+.midias-2 {
+  display: grid;
+  gap: var(--sp-5);
+}
+@media (min-width: 768px) { .midias-2 { grid-template-columns: 1fr 1fr; } }
+
+
+/* ==========================================================================
+   MENU — página de produto: "Soluções" fica marcado (aria-current="true")
+   e o item do produto no submenu também (aria-current="page")
+   ========================================================================== */
+
+.nav__sub-link[aria-current="page"] { background: rgba(255, 255, 255, 0.06); }
+
+
+/* ##########################################################################
+   BLOG (listagem e artigo) + ajustes para Consumíveis e Projetos sob medida
+   ########################################################################## */
+
+.artigo-layout > * { min-width: 0; }
+
+
+/* processo com 3 passos (Consumíveis): 3 colunas em vez de 4 */
+@media (min-width: 1024px) { .processo__passos--3 { grid-template-columns: repeat(3, 1fr); } }
+
+
+/* ==========================================================================
+   FILTRO DE CATEGORIAS — os mesmos atalhos do topo, com estado ativo.
+   No WordPress, cada um é o link da categoria.
+   ========================================================================== */
+
+.atalho[aria-current] {
+  background: var(--n-0);
+  border-color: var(--n-0);
+  color: var(--ax-navy-900);
+}
+.atalho[aria-current]::before { background: var(--ax-green-500); }
+
+
+/* ==========================================================================
+   LISTAGEM DO BLOG
+   ========================================================================== */
+
+.card-post__resumo { font-size: var(--fs-sm); color: var(--text-muted); }
+
+.card-post__resumo { font-size: var(--fs-sm); color: var(--text-muted); }
+
+/* paginação */
+.paginacao {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-12);
+}
+.paginacao a,
+.paginacao span {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  height: 44px;
+  padding-inline: var(--sp-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+}
+.paginacao a:hover { border-color: var(--ax-blue-500); color: var(--ax-blue-500); }
+.paginacao [aria-current] { background: var(--ax-blue-500); border-color: var(--ax-blue-500); color: var(--n-0); }
+
+
+/* ==========================================================================
+   ARTIGO — modelo de post
+   ========================================================================== */
+
+.artigo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2) var(--sp-5);
+  margin-top: var(--sp-6);
+  font-size: var(--fs-sm);
+  color: var(--text-inverse-muted);
+}
+.artigo-meta span + span::before {
+  content: "·";
+  margin-right: var(--sp-5);
+  color: var(--text-inverse-soft);
+}
+
+.artigo-capa { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.artigo-capa .ph { border-radius: var(--r-xl); }
+
+.artigo-layout {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .artigo-layout { grid-template-columns: minmax(0, 46rem) minmax(0, 18rem); justify-content: center; }
+  .artigo-aside { position: sticky; top: 110px; }
+}
+
+/* tipografia de leitura longa */
+.prosa { font-size: var(--fs-lead); line-height: var(--lh-relaxed); color: var(--n-700); }
+.prosa > * + * { margin-top: var(--sp-5); }
+.prosa h2 {
+  margin-top: var(--sp-12);
+  font-size: clamp(1.375rem, 1.15rem + 0.9vw, 1.75rem);
+  scroll-margin-top: 110px;
+}
+.prosa h3 { margin-top: var(--sp-8); font-size: var(--fs-h3); }
+.prosa ul { padding-left: var(--sp-6); list-style: disc; }
+.prosa ul li + li { margin-top: var(--sp-2); }
+.prosa li::marker { color: var(--ax-blue-500); }
+.prosa a { text-decoration: underline; text-underline-offset: 3px; }
+.prosa strong { color: var(--text); }
+.prosa blockquote {
+  margin-inline: 0;
+  padding: var(--sp-5) var(--sp-6);
+  border-left: 3px solid var(--ax-blue-500);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  background: var(--ax-blue-50);
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+}
+.prosa .tabela-wrap { margin-block: var(--sp-8); }
+.prosa .tabela-comp { min-width: 520px; }
+.prosa__intro { font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); color: var(--text); }
+
+/* chamada dentro do texto */
+.caixa-cta {
+  display: grid;
+  gap: var(--sp-4);
+  margin-block: var(--sp-10);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border: 1px solid color-mix(in srgb, var(--ir-500) 30%, var(--border));
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(28rem 14rem at 100% 0%, rgba(255, 106, 26, 0.10), transparent 62%),
+    var(--surface);
+}
+@media (min-width: 640px) { .caixa-cta { grid-template-columns: 1fr auto; align-items: center; } }
+.caixa-cta h3 { margin: 0 0 var(--sp-1); font-size: var(--fs-h4); }
+.caixa-cta p { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); }
+
+/* autor e compartilhar, ao fim do texto */
+.artigo-rodape {
+  display: grid;
+  gap: var(--sp-6);
+  margin-top: var(--sp-12);
+  padding-top: var(--sp-8);
+  border-top: 1px solid var(--border);
+}
+.autor { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-4); align-items: center; }
+.autor img { width: 56px; height: 56px; border-radius: var(--r-full); background: var(--ax-navy-900); padding: 10px; object-fit: contain; }
+.autor strong { display: block; color: var(--text); }
+.autor span { font-size: var(--fs-sm); color: var(--text-muted); }
+
+.compartilhar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); }
+.compartilhar a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-muted);
+}
+.compartilhar a:hover { border-color: var(--ax-blue-500); color: var(--ax-blue-500); }
+.compartilhar svg { width: 18px; height: 18px; }
+
+/* coluna lateral */
+.artigo-aside { display: grid; gap: var(--sp-5); }
+.sumario {
+  padding: var(--sp-6);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface-sunken);
+}
+.sumario ol { display: grid; gap: var(--sp-3); counter-reset: sumario; }
+.sumario li { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-3); counter-increment: sumario; font-size: var(--fs-sm); line-height: var(--lh-normal); }
+.sumario li::before {
+  content: counter(sumario, decimal-leading-zero);
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  color: var(--ax-blue-500);
+}
+.sumario a { color: var(--text-muted); }
+.sumario a:hover { color: var(--ax-blue-500); }
+
+.cta-lateral {
+  padding: var(--sp-6);
+  border-radius: var(--r-lg);
+  background: var(--grad-dark);
+  color: var(--text-inverse-muted);
+}
+.cta-lateral h3 { margin-bottom: var(--sp-2); font-size: var(--fs-h4); color: var(--n-0); }
+.cta-lateral p { margin-bottom: var(--sp-5); font-size: var(--fs-sm); }
+
+.produtos-lateral {
+  padding: var(--sp-6);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.produtos-lateral ul { display: grid; gap: var(--sp-3); }
+.produtos-lateral a { display: flex; align-items: center; gap: var(--sp-3); font-size: var(--fs-sm); font-weight: var(--fw-semibold); color: var(--text); }
+.produtos-lateral a:hover { color: var(--ax-blue-500); }
+.produtos-lateral .icone-box { width: 32px; height: 32px; border-radius: var(--r-sm); }
+.produtos-lateral .icone-box svg { width: 16px; height: 16px; }

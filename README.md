@@ -8,6 +8,8 @@ A página está marcada como `noindex` de propósito.
 
 ## Estado
 
+- `site/` traz o protótipo do site completo (Home, soluções, institucional,
+  contato e blog) — também prévia interna, também `noindex`.
 - O formulário de orçamento não tem back-end: o envio é simulado.
 - Os espaços tracejados são imagens ainda pendentes com o cliente.
 

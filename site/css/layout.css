@@ -1,0 +1,493 @@
+/* ==========================================================================
+   AX PACK — SITE · ESTRUTURA COMUM A TODAS AS PÁGINAS
+   Topbar · cabeçalho com menu · painel mobile · rodapé
+
+   Derivado da LP (css/sections.css) e do menu da v2 (css-v2/sections.css).
+   Diferença principal para a LP: aqui o cabeçalho TEM menu, com o submenu
+   de Soluções. O resto (topbar, header navy ao rolar, rodapé) é o mesmo
+   tratamento da LP para as duas peças parecerem do mesmo site.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   Itens de grid encolhem abaixo do min-content só com min-width: 0.
+   Ver CLAUDE.md §10 (armadilha do aspect-ratio dentro de grid).
+   -------------------------------------------------------------------------- */
+
+.rodape__topo > * { min-width: 0; }
+
+
+/* ==========================================================================
+   TOPBAR
+   ========================================================================== */
+
+.topbar {
+  position: relative;
+  z-index: calc(var(--z-header) + 1);
+  background: var(--ax-navy-950);
+  color: var(--text-inverse-muted);
+  font-size: var(--fs-xs);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.topbar__interno {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  min-height: 42px;
+  padding-block: var(--sp-2);
+}
+
+.topbar__contatos {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+}
+
+.topbar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--text-inverse-muted);
+  white-space: nowrap;
+}
+.topbar__item:hover { color: var(--n-0); }
+.topbar__item svg { width: 14px; height: 14px; flex: none; color: var(--ax-blue-300); }
+
+.topbar__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--text-inverse-soft);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.topbar__tag strong { color: var(--ax-blue-300); font-weight: var(--fw-semibold); }
+
+@media (max-width: 900px) {
+  .topbar__tag,
+  .topbar__item--email,
+  .topbar__item--local { display: none; }
+  .topbar__interno { justify-content: center; }
+}
+
+
+/* ==========================================================================
+   CABEÇALHO
+   Transparente sobre o topo escuro de cada página; ao rolar, navy
+   translúcido — nunca branco (mesma regra da LP, §8.2.1).
+
+   O fundo do estado rolado mora num ::before, e não no próprio header.
+   Motivo: backdrop-filter no header o transformaria em bloco de contenção
+   para os filhos com position: fixed — e o painel do menu mobile, que é
+   fixed e mora dentro do header, ficaria preso à altura de 70px dele.
+   ========================================================================== */
+
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-base) var(--ease);
+}
+
+.cabecalho::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(4, 20, 42, 0.86);
+  backdrop-filter: saturate(150%) blur(14px);
+  -webkit-backdrop-filter: saturate(150%) blur(14px);
+  box-shadow: 0 10px 30px rgba(2, 11, 24, 0.28);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease);
+  pointer-events: none;
+}
+.cabecalho.compacto { border-bottom-color: rgba(255, 255, 255, 0.10); }
+.cabecalho.compacto::before { opacity: 1; }
+
+.cabecalho__interno {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  min-height: 84px;
+  transition: min-height var(--dur-base) var(--ease);
+}
+.cabecalho.compacto .cabecalho__interno { min-height: 70px; }
+
+/* --- marca --- */
+.marca { display: block; flex: none; margin-right: auto; }
+.marca img {
+  height: clamp(32px, 2.8vw, 42px);
+  width: auto;
+  transition: height var(--dur-base) var(--ease);
+}
+.cabecalho.compacto .marca img { height: clamp(28px, 2.4vw, 36px); }
+
+/* --- ações (sempre visíveis, fora do painel) --- */
+.cabecalho__acoes {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex: none;
+}
+.cabecalho .btn--header { padding: var(--sp-3) var(--sp-6); white-space: nowrap; }
+
+/* WhatsApp só com ícone: o menu ocupa o espaço que o rótulo tinha na LP */
+.btn--icone {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+
+/* Rótulo curto do CTA — só aparece quando o longo não cabe */
+.btn__curto { display: none; }
+
+
+/* ==========================================================================
+   MENU — desktop
+   ========================================================================== */
+
+.nav__lista {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+}
+
+.nav__item { position: relative; }
+
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding-block: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--n-0);
+  white-space: nowrap;
+}
+.nav__link svg { width: 15px; height: 15px; opacity: 0.7; transition: transform var(--dur-base) var(--ease); }
+
+/* Sublinhado e hover na MESMA cor — regra "uma cor por estado" (§6.1).
+   O header é escuro em todos os estados, então os dois são verdes. */
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--ax-green-400);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.nav__link:hover { color: var(--ax-green-400); }
+.nav__link:hover::after,
+.nav__link[aria-current]::after { transform: scaleX(1); }
+
+/* --- submenu de Soluções ---
+   Abre no hover e no foco do teclado (:focus-within), sem JavaScript —
+   o mesmo comportamento do widget de menu do Elementor. Clicar em
+   "Soluções" leva ao hub, que lista tudo: quem usa toque também chega. */
+.nav__sub {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 560px;
+  /* a ponte invisível: sem esse respiro, o cursor sai do link, cruza o vão
+     e o submenu fecha antes de ser alcançado */
+  padding-top: var(--sp-4);
+  transform: translate(-50%, 8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-base) var(--ease),
+              transform var(--dur-base) var(--ease-out),
+              visibility var(--dur-base);
+}
+.nav__item--sub:hover .nav__sub,
+.nav__item--sub:focus-within .nav__sub {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+.nav__item--sub:hover > .nav__link svg,
+.nav__item--sub:focus-within > .nav__link svg { transform: rotate(180deg); }
+
+.nav__sub-painel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-1);
+  padding: var(--sp-3);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--r-lg);
+  background: var(--ax-navy-900);
+  box-shadow: 0 24px 60px rgba(2, 11, 24, 0.5);
+}
+
+.nav__sub-link {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-3);
+  align-items: start;
+  padding: var(--sp-4);
+  border-radius: var(--r-md);
+  color: var(--text-inverse-muted);
+  font-size: var(--fs-xs);
+  line-height: 1.45;
+  transition: background-color var(--dur-fast) var(--ease);
+}
+.nav__sub-link:hover { background: rgba(255, 255, 255, 0.06); color: var(--text-inverse-muted); }
+.nav__sub-link strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: var(--fs-sm);
+  color: var(--n-0);
+}
+
+.nav__sub-todas {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--sp-1);
+  padding: var(--sp-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--ax-blue-300);
+}
+.nav__sub-todas:hover { color: var(--n-0); }
+.nav__sub-todas svg { width: 16px; height: 16px; }
+
+/* contatos repetidos no painel mobile — escondidos no desktop */
+.nav__contatos { display: none; }
+
+
+/* --- hambúrguer --- */
+.hamburguer {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--r-sm);
+  color: var(--n-0);
+}
+.hamburguer span {
+  position: absolute;
+  left: 50%;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  transform: translateX(-50%);
+  transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-fast) var(--ease);
+}
+.hamburguer span:nth-child(1) { top: 15px; }
+.hamburguer span:nth-child(2) { top: 21px; }
+.hamburguer span:nth-child(3) { top: 27px; }
+.hamburguer[aria-expanded="true"] span:nth-child(1) { transform: translate(-50%, 6px) rotate(45deg); }
+.hamburguer[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.hamburguer[aria-expanded="true"] span:nth-child(3) { transform: translate(-50%, -6px) rotate(-45deg); }
+
+
+/* ==========================================================================
+   MENU — painel mobile (abaixo de 1024px)
+   ========================================================================== */
+
+@media (max-width: 1023px) {
+  .hamburguer { display: block; }
+
+  .nav {
+    position: fixed;
+    inset: 0 0 0 auto;
+    z-index: 1;
+    width: min(380px, 88vw);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+    padding: calc(var(--sp-20) + var(--sp-4)) var(--sp-8) var(--sp-8);
+    background: var(--ax-navy-900);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.4);
+    transform: translateX(100%);
+    /* visibility fechada: tira o painel do scrollWidth e da ordem de tabulação */
+    visibility: hidden;
+    transition: transform var(--dur-slow) var(--ease-out),
+                visibility var(--dur-slow) var(--ease-out);
+    overflow-y: auto;
+  }
+  .nav[data-aberto="true"] { transform: translateX(0); visibility: visible; }
+
+  .nav__lista { flex-direction: column; align-items: stretch; gap: 0; }
+  .nav__item { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+
+  .nav__link {
+    display: flex;
+    padding-block: var(--sp-5);
+    font-family: var(--font-display);
+    font-size: var(--fs-h4);
+    font-weight: var(--fw-semibold);
+  }
+  .nav__link::after,
+  .nav__link svg { display: none; }
+
+  /* no painel o submenu fica sempre aberto, recuado sob "Soluções" */
+  .nav__sub {
+    position: static;
+    width: auto;
+    padding: 0 0 var(--sp-4);
+    transform: none;
+    opacity: 1;
+    visibility: inherit;
+  }
+  .nav__item--sub:hover .nav__sub,
+  .nav__item--sub:focus-within .nav__sub { transform: none; }
+
+  .nav__sub-painel {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+    border: 0;
+    border-left: 2px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+  .nav__sub-link { display: block; padding: var(--sp-2) var(--sp-4); }
+  .nav__sub-link .icone-box,
+  .nav__sub-link span > span { display: none; }
+  .nav__sub-link strong { margin: 0; font-weight: var(--fw-medium); color: var(--text-inverse-muted); }
+  .nav__sub-todas { display: none; }
+
+  .nav__contatos {
+    display: grid;
+    gap: var(--sp-4);
+    margin-top: auto;
+    padding-top: var(--sp-8);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: var(--fs-sm);
+  }
+  .nav__contatos a { display: flex; align-items: center; gap: var(--sp-3); color: var(--text-inverse-muted); }
+  .nav__contatos svg { width: 16px; height: 16px; color: var(--ax-blue-300); flex: none; }
+
+  /* o painel desliza por baixo do header: marca, CTA e o X ficam por cima */
+  .marca, .cabecalho__acoes, .hamburguer { position: relative; z-index: 2; }
+}
+
+@media (max-width: 767px) {
+  .cabecalho__interno { min-height: 72px; gap: var(--sp-3); }
+  .cabecalho .btn--header { padding: var(--sp-3) var(--sp-4); }
+  /* o botão flutuante já cobre o WhatsApp no celular */
+  .cabecalho .btn--whats { display: none; }
+}
+
+@media (max-width: 480px) {
+  .marca img,
+  .cabecalho.compacto .marca img { height: 28px; }
+  .cabecalho .btn--header { padding: var(--sp-3); font-size: var(--fs-xs); }
+  .btn__longo { display: none; }
+  .btn__curto { display: inline; }
+}
+
+/* Fundo escurecido atrás do painel */
+.overlay-menu {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-header) - 1);
+  background: rgba(2, 11, 24, 0.6);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-base) var(--ease), visibility var(--dur-base);
+}
+.overlay-menu[data-ativo="true"] { opacity: 1; visibility: visible; }
+
+body.menu-aberto { overflow: hidden; }
+
+
+/* ==========================================================================
+   RODAPÉ — denso, no padrão da Baldan: contato e endereço bem visíveis
+   ========================================================================== */
+
+.rodape {
+  background: var(--ax-navy-950);
+  color: var(--text-inverse-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rodape__topo {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  padding-block: clamp(4.5rem, 7.5vw, 7rem) clamp(3.5rem, 5vw, 5rem);
+}
+@media (min-width: 640px) {
+  .rodape__topo { grid-template-columns: repeat(2, 1fr); }
+  .rodape__marca { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .rodape__topo { grid-template-columns: 1.7fr 1fr 1fr 1.35fr; }
+  .rodape__marca { grid-column: auto; }
+}
+
+.rodape__marca img { height: 54px; width: auto; margin-bottom: var(--sp-6); }
+.rodape__marca p { font-size: var(--fs-sm); max-width: 44ch; margin-bottom: var(--sp-6); }
+
+.rodape__social { display: flex; gap: var(--sp-3); }
+.rodape__social a {
+  display: grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--r-sm);
+  color: var(--text-inverse-muted);
+  transition: background-color var(--dur-base) var(--ease),
+              border-color var(--dur-base) var(--ease),
+              color var(--dur-base) var(--ease);
+}
+.rodape__social a:hover {
+  background: var(--ax-blue-500);
+  border-color: var(--ax-blue-500);
+  color: var(--n-0);
+}
+.rodape__social svg { width: 18px; height: 18px; }
+
+.rodape__titulo {
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--n-0);
+  margin-bottom: var(--sp-6);
+}
+
+.rodape__links { display: grid; gap: var(--sp-3); }
+.rodape__links a { font-size: var(--fs-sm); color: var(--text-inverse-muted); }
+.rodape__links a:hover { color: var(--ax-blue-300); }
+
+.rodape__contato { display: grid; gap: var(--sp-5); }
+.rodape__contato-item { display: flex; gap: var(--sp-3); align-items: start; font-size: var(--fs-sm); }
+.rodape__contato-item svg { width: 17px; height: 17px; flex: none; margin-top: 4px; color: var(--ax-blue-300); }
+.rodape__contato-item a { color: var(--text-inverse-muted); }
+.rodape__contato-item a:hover { color: var(--n-0); }
+.rodape__contato-item address { font-style: normal; line-height: var(--lh-normal); }
+
+.rodape__base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-block: var(--sp-5);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: var(--fs-xs);
+  color: var(--text-inverse-soft);
+}
+
+/* com o painel aberto, o botão flutuante ficaria por cima dos contatos dele */
+body.menu-aberto .whatsapp-flutuante { opacity: 0; visibility: hidden; }
