@@ -229,11 +229,8 @@
 }
 
 .nav__sub-link {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--sp-3);
-  align-items: start;
-  padding: var(--sp-4);
+  display: block;
+  padding: var(--sp-3) var(--sp-4);
   border-radius: var(--r-md);
   color: var(--text-inverse-muted);
   font-size: var(--fs-xs);
@@ -491,3 +488,54 @@ body.menu-aberto { overflow: hidden; }
 
 /* com o painel aberto, o botão flutuante ficaria por cima dos contatos dele */
 body.menu-aberto .whatsapp-flutuante { opacity: 0; visibility: hidden; }
+
+/* submenu de coluna única (A Ax Pack): itens institucionais, sem pares */
+@media (min-width: 1024px) {
+  .nav__sub--simples { width: 320px; }
+  .nav__sub--simples .nav__sub-painel { grid-template-columns: 1fr; }
+}
+
+/* ---------------------------------------------------------------------------
+   SEGUNDO NÍVEL DO MENU — os modelos de pesadora, dentro de Soluções.
+   Desktop: abre à direita do item "Pesadoras" no hover/foco; o padding-left
+   é a ponte invisível que impede o submenu de fechar no vão.
+   Mobile: fica sempre aberto, recuado abaixo de "Pesadoras".
+   --------------------------------------------------------------------------- */
+.nav__sub-grupo { position: relative; }
+.nav__sub-grupo > .nav__sub-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.nav__sub-grupo > .nav__sub-link > svg { width: 16px; height: 16px; flex: none; opacity: 0.6; }
+
+.nav__sub2 {
+  position: absolute;
+  top: calc(-1 * var(--sp-3));
+  left: 100%;
+  width: 300px;
+  padding-left: var(--sp-3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(6px);
+  transition: opacity var(--dur-base) var(--ease),
+              transform var(--dur-base) var(--ease-out),
+              visibility var(--dur-base);
+}
+.nav__sub-grupo:hover > .nav__sub2,
+.nav__sub-grupo:focus-within > .nav__sub2 { opacity: 1; visibility: visible; transform: none; }
+.nav__sub2 .nav__sub-painel { grid-template-columns: 1fr; }
+
+@media (max-width: 1023px) {
+  .nav__sub-grupo > .nav__sub-link { display: block; }
+  .nav__sub-grupo > .nav__sub-link > svg { display: none; }
+  .nav__sub2 {
+    position: static;
+    width: auto;
+    padding: 0 0 var(--sp-2) var(--sp-4);
+    opacity: 1;
+    visibility: inherit;
+    transform: none;
+  }
+}

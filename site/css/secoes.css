@@ -1525,3 +1525,198 @@ a.chip--infra:hover { border-color: var(--ir-500); color: var(--ir-700); }
 .produtos-lateral a:hover { color: var(--ax-blue-500); }
 .produtos-lateral .icone-box { width: 32px; height: 32px; border-radius: var(--r-sm); }
 .produtos-lateral .icone-box svg { width: 16px; height: 16px; }
+
+
+/* ##########################################################################
+   PÁGINAS NOVAS (06/10/2026) — modelos de pesadora, culturas, assistência,
+   projetos realizados, missão/visão/valores, inovação
+   ########################################################################## */
+
+.numeros > *,
+.declaracoes > *,
+.cta-final > * { min-width: 0; }
+
+
+/* ==========================================================================
+   NÚMEROS EM DESTAQUE — faixa de especificações das pesadoras
+   ========================================================================== */
+
+.numeros {
+  display: grid;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-10);
+}
+@media (min-width: 640px) { .numeros { grid-template-columns: repeat(3, 1fr); } }
+
+.numero {
+  padding: var(--sp-6);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.numero strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+  font-weight: var(--fw-black);
+  line-height: 1.05;
+  letter-spacing: var(--ls-tight);
+  color: var(--ax-blue-500);
+}
+.numero span { display: block; margin-top: var(--sp-2); font-size: var(--fs-sm); color: var(--text-muted); }
+
+/* coluna em destaque da tabela, versão azul (fora do território AX Infra) */
+.tabela-comp .col-destaque--azul {
+  background: var(--ax-blue-50);
+  box-shadow: inset 2px 0 0 var(--ax-blue-500);
+}
+.tabela-comp thead .col-destaque--azul { color: var(--ax-blue-600); }
+
+
+/* ==========================================================================
+   MISSÃO E VISÃO — duas declarações lado a lado
+   ========================================================================== */
+
+.declaracoes {
+  display: grid;
+  gap: var(--sp-6);
+}
+@media (min-width: 900px) { .declaracoes { grid-template-columns: 1fr 1fr; } }
+
+.declaracao {
+  position: relative;
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  background:
+    radial-gradient(30rem 16rem at 100% 0%, rgba(32, 96, 208, 0.08), transparent 62%),
+    var(--surface);
+  overflow: hidden;
+}
+.declaracao::before {
+  content: "";
+  position: absolute;
+  top: 0; left: clamp(1.75rem, 3.5vw, 2.75rem);
+  width: 44px; height: 3px;
+  background: var(--grad-blue);
+}
+.declaracao .icone-box { margin-bottom: var(--sp-6); }
+.declaracao h2 { font-size: var(--fs-h3); margin-bottom: var(--sp-4); }
+.declaracao p {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+  color: var(--text);
+}
+.declaracao .rascunho { margin-top: var(--sp-5); }
+
+/* frase de manifesto em seção escura */
+.manifesto {
+  max-width: 52rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.manifesto blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.5rem);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--n-0);
+}
+.manifesto p { margin-top: var(--sp-6); color: var(--text-inverse-muted); }
+.manifesto .btn { margin-top: var(--sp-8); }
+
+
+/* ==========================================================================
+   PROJETOS REALIZADOS (2ª versão) — cada case é um .card-solucao com uma
+   ficha curta (cultura, etapa, solução) e, quando houver, um dado real em
+   destaque com a foto que o comprova.
+   ========================================================================== */
+
+.case-fatos {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  gap: var(--sp-2) var(--sp-8);
+  margin: 0 0 var(--sp-6);
+  padding-block: var(--sp-4);
+  border-block: 1px solid var(--border);
+}
+.case-fatos dt {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.case-fatos dd { margin: var(--sp-1) 0 0; font-size: var(--fs-sm); font-weight: var(--fw-semibold); color: var(--text); }
+@media (max-width: 479px) { .case-fatos { grid-template-columns: 1fr 1fr; } }
+
+.case-destaque {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-8);
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--surface-sunken);
+}
+.case-destaque img {
+  width: 88px;
+  height: 66px;
+  flex: none;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+}
+.case-destaque p { font-size: var(--fs-sm); color: var(--text-muted); }
+.case-destaque strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-black);
+  line-height: 1.1;
+  color: var(--ir-600);
+}
+
+
+/* ==========================================================================
+   CTA FINAL — fecha as páginas institucionais (padrão de 07/10/2026).
+   As páginas de conversão terminam no formulário de orçamento; as
+   institucionais terminam aqui, com um botão para o Contato.
+   Mesmo fundo da seção de orçamento, com a luz verde única na borda.
+   ========================================================================== */
+
+.cta-final {
+  position: relative;
+  background: var(--grad-dark);
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+}
+.cta-final::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(42rem 26rem at 50% 0%, rgba(32, 96, 208, 0.36), transparent 62%),
+    radial-gradient(30rem 20rem at 78% 100%, rgba(11, 46, 92, 0.85), transparent 70%),
+    radial-gradient(9rem 9rem at 97% 6%, var(--luz-verde), transparent 72%);
+  pointer-events: none;
+}
+.cta-final__conteudo { max-width: 46rem; margin-inline: auto; }
+.cta-final .eyebrow::before { display: none; }
+.cta-final h2 { color: var(--n-0); }
+.cta-final__conteudo > p:not(.eyebrow) { margin-top: var(--sp-5); color: var(--text-inverse-muted); }
+
+.cta-final__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-4);
+  margin-top: var(--sp-8);
+}
+.manifesto .cta-final__acoes .btn { margin-top: 0; }

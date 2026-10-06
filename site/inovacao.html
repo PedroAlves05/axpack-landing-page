@@ -8,12 +8,12 @@
      domínio real da AxPack nos buscadores. -->
 <meta name="robots" content="noindex, nofollow">
 
-<title>Contato — Fale com a Ax Pack | Matão/SP</title>
-<meta name="description" content="Fale com a Ax Pack por WhatsApp, telefone ou e-mail. Orçamentos, suporte técnico e compra de consumíveis para embalagem. Rua Alexandre dos Santos Pires, 907, Matão/SP.">
+<title>Inovação, tecnologia e desenvolvimento | Ax Pack</title>
+<meta name="description" content="Engenharia própria, o AX Infra com patente requerida no INPI e pesquisa aplicada com a USP/ESALQ: a tecnologia por trás das soluções Ax Pack.">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Contato — Fale com a Ax Pack | Matão/SP">
-<meta property="og:description" content="Fale com a Ax Pack por WhatsApp, telefone ou e-mail. Orçamentos, suporte técnico e compra de consumíveis para embalagem. Rua Alexandre dos Santos Pires, 907, Matão/SP.">
+<meta property="og:title" content="Inovação, tecnologia e desenvolvimento | Ax Pack">
+<meta property="og:description" content="Engenharia própria, o AX Infra com patente requerida no INPI e pesquisa aplicada com a USP/ESALQ: a tecnologia por trás das soluções Ax Pack.">
 
 <link rel="icon" href="../assets/img/favicon.png" type="image/png">
 
@@ -116,7 +116,7 @@
         </li>
 
         <li class="nav__item nav__item--sub">
-          <a class="nav__link" href="a-ax-pack.html">
+          <a class="nav__link" href="a-ax-pack.html" aria-current="true">
             A Ax Pack
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </a>
@@ -128,7 +128,7 @@
               <a class="nav__sub-link" href="missao-visao-valores.html">
                 <span><strong>Missão, visão e valores</strong><span>O que guia cada projeto</span></span>
               </a>
-              <a class="nav__sub-link" href="inovacao.html">
+              <a class="nav__sub-link" href="inovacao.html" aria-current="page">
                 <span><strong>Inovação e tecnologia</strong><span>Engenharia, patente e pesquisa</span></span>
               </a>
               <a class="nav__sub-link" href="projetos-realizados.html">
@@ -141,7 +141,7 @@
           </div>
         </li>
         <li class="nav__item"><a class="nav__link" href="blog.html">Blog</a></li>
-        <li class="nav__item"><a class="nav__link" href="contato.html" aria-current="page">Contato</a></li>
+        <li class="nav__item"><a class="nav__link" href="contato.html">Contato</a></li>
       </ul>
 
       <div class="nav__contatos">
@@ -162,7 +162,7 @@
          target="_blank" rel="noopener" aria-label="Falar com a Ax Pack no WhatsApp">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.6-.1a13 13 0 0 1-5-4.4c-.4-.5-1-1.5-1-2.8s.7-2 .9-2.2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5-.3.3c-.1.1-.2.3 0 .5a8 8 0 0 0 3.6 3c.3.1.4.1.6-.1l.8-1c.2-.2.3-.2.5-.1l2 .9c.3.1.4.2.5.3 0 .1 0 .5-.2 1.1Z"/></svg>
       </a>
-      <a class="btn btn--primario btn--header" href="#orcamento">
+      <a class="btn btn--primario btn--header" href="contato.html#orcamento">
         <span class="btn__longo">Solicitar orçamento</span>
         <span class="btn__curto">Orçamento</span>
       </a>
@@ -185,128 +185,165 @@
       <nav class="migalhas" aria-label="Você está em">
         <ol>
           <li><a href="index.html">Início</a></li>
-          <li><span aria-current="page">Contato</span></li>
+          <li><a href="a-ax-pack.html">A Ax Pack</a></li>
+          <li><span aria-current="page">Inovação e tecnologia</span></li>
         </ol>
       </nav>
 
-      <p class="hero__eyebrow">Contato</p>
-      <h1>Fale com a Ax Pack</h1>
+      <p class="hero__eyebrow">Pesquisa e desenvolvimento</p>
+      <h1>Inovação, tecnologia e desenvolvimento</h1>
       <p class="lead">
-        Orçamentos, suporte técnico e compra de consumíveis. Atendimento direto com
-        quem conhece os equipamentos — sem central de atendimento no meio.
+        Engenharia própria, pesquisa aplicada e tecnologia desenvolvida aqui — não
+        revendida — para resolver os problemas reais do pós-colheita.
       </p>
     </div>
   </div>
 </section>
 
 
-<section class="secao contato-pagina" id="orcamento" aria-labelledby="titulo-form">
-  <div class="container">
-  <div class="contato-pagina__grid">
-
-    <div class="contato__form reveal">
-      <h2 id="titulo-form" style="font-size: var(--fs-h3); margin-bottom: var(--sp-2);">Envie sua mensagem</h2>
-      <p>Retornamos o contato com uma avaliação técnica da sua operação.</p>
-
-      <form class="form" data-form-orcamento novalidate>
-        <div class="form__linha form__linha--2">
-          <div class="campo">
-            <label class="campo__rotulo" for="c-nome">Nome <span class="obrigatorio">*</span></label>
-            <input class="campo__controle" type="text" id="c-nome" name="nome" autocomplete="name" placeholder="Seu nome completo" required>
-          </div>
-          <div class="campo">
-            <label class="campo__rotulo" for="c-empresa">Empresa</label>
-            <input class="campo__controle" type="text" id="c-empresa" name="empresa" autocomplete="organization" placeholder="Empresa ou fazenda">
-          </div>
-        </div>
-
-        <div class="form__linha form__linha--2">
-          <div class="campo">
-            <label class="campo__rotulo" for="c-telefone">Telefone / WhatsApp <span class="obrigatorio">*</span></label>
-            <input class="campo__controle" type="tel" id="c-telefone" name="telefone" autocomplete="tel" placeholder="(00) 00000-0000" required>
-          </div>
-          <div class="campo">
-            <label class="campo__rotulo" for="c-email">E-mail <span class="obrigatorio">*</span></label>
-            <input class="campo__controle" type="email" id="c-email" name="email" autocomplete="email" placeholder="voce@empresa.com.br" required>
-          </div>
-        </div>
-
-        <div class="campo">
-          <label class="campo__rotulo" for="c-motivo">Motivo do contato <span class="obrigatorio">*</span></label>
-          <select class="campo__controle" id="c-motivo" name="motivo" required>
-            <option value="" selected disabled>Selecione</option>
-            <option>Solicitar orçamento de equipamento</option>
-            <option>Comprar consumíveis para embalagem</option>
-            <option>Suporte técnico</option>
-            <option>Outro assunto</option>
-          </select>
-        </div>
-
-        <div class="campo">
-          <label class="campo__rotulo" for="c-mensagem">Mensagem</label>
-          <textarea class="campo__controle" id="c-mensagem" name="mensagem" rows="4" placeholder="Conte o que você precisa. Para orçamento, informe a cultura, o volume processado e o espaço disponível na linha."></textarea>
-        </div>
-
-        <button class="btn btn--primario btn--grande btn--bloco" type="submit">
-          Enviar mensagem
-          <svg class="btn__seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-
-        <p class="form__nota">Protótipo — o envio ainda não está integrado a nenhum destino.</p>
-      </form>
+<section class="secao" aria-labelledby="titulo-engenharia-propria">
+  <div class="container empresa__grid">
+    <div class="texto-corrido reveal">
+      <p class="eyebrow">Engenharia própria</p>
+      <h2 id="titulo-engenharia-propria">Desenvolvemos o que fabricamos</h2>
+      <p class="lead" style="margin-top: var(--sp-5);">
+        Na Ax Pack, os equipamentos nascem na nossa engenharia, em Matão/SP. É ela que
+        projeta, fabrica e dá suporte — e é dela que sai cada melhoria.
+      </p>
+      <p>
+        O compromisso com o estudo e o desenvolvimento do segmento é o que levou à
+        principal inovação da empresa: o AX Infra, um sistema de secagem por
+        infravermelho criado para tirar o gás do pós-colheita.
+      </p>
     </div>
-
-    <aside class="onde reveal" data-delay="1" aria-labelledby="titulo-onde">
-      <div class="onde__bloco">
-        <h3 id="titulo-onde">Onde estamos</h3>
-        <address>
-          Rua Alexandre dos Santos Pires, 907<br>
-          Azul Ville I — Matão / SP
-        </address>
-        <a class="link-seta" href="https://www.google.com/maps/search/?api=1&amp;query=Rua+Alexandre+dos+Santos+Pires%2C+907%2C+Mat%C3%A3o+-+SP" target="_blank" rel="noopener">
-          Como chegar
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+    <div class="empresa__midia reveal" data-delay="1">
+      <div class="midia" style="--ar: 4 / 3;">
+        <img src="../assets/img/galeria-lampadas-infravermelhas.jpg" width="1000" height="750" loading="lazy" decoding="async"
+             alt="Lâmpadas infravermelhas acesas do sistema de secagem AX Infra">
       </div>
-
-      <div class="mapa">
-        <iframe title="Mapa com a localização da Ax Pack em Matão/SP" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps?q=Rua+Alexandre+dos+Santos+Pires,+907,+Mat%C3%A3o+-+SP&amp;output=embed"></iframe>
-      </div>
-
-      <div class="onde__bloco">
-        <h3>Horário de atendimento</h3>
-        <p><span class="rascunho">A confirmar com o cliente</span></p>
-      </div>
-    </aside>
-
-  </div>
-    <h2 class="sr-only">Canais diretos</h2>
-    <div class="canais-mini">
-      <a class="canal-mini canal-mini--whats" href="https://wa.me/5516997821162?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Ax%20Pack." target="_blank" rel="noopener">
-        <span class="icone-box icone-box--sm icone-box--whats"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.6-.1a13 13 0 0 1-5-4.4c-.4-.5-1-1.5-1-2.8s.7-2 .9-2.2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5-.3.3c-.1.1-.2.3 0 .5a8 8 0 0 0 3.6 3c.3.1.4.1.6-.1l.8-1c.2-.2.3-.2.5-.1l2 .9c.3.1.4.2.5.3 0 .1 0 .5-.2 1.1Z"/></svg></span>
-        <span><strong>WhatsApp</strong><span class="canal-mini__valor">(16) 99782-1162</span></span>
-      </a>
-      <a class="canal-mini" href="tel:+5516997821162">
-        <span class="icone-box icone-box--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 1.9.6 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.7 2Z"/></svg></span>
-        <span><strong>Telefone</strong><span class="canal-mini__valor">(16) 99782-1162</span></span>
-      </a>
-      <a class="canal-mini" href="mailto:alex@axpack.com.br">
-        <span class="icone-box icone-box--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>
-        <span><strong>E-mail</strong><span class="canal-mini__valor">alex@axpack.com.br</span></span>
-      </a>
-      <a class="canal-mini" href="https://instagram.com/axpackmaquinas" target="_blank" rel="noopener">
-        <span class="icone-box icone-box--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></span>
-        <span><strong>Instagram</strong><span class="canal-mini__valor">@axpackmaquinas</span></span>
-      </a>
     </div>
-
-
   </div>
-
 </section>
 
+
+<section class="secao secao--escura tema-escuro" aria-labelledby="titulo-patente">
+  <div class="container">
+
+    <div class="secao-head reveal">
+      <p class="eyebrow" style="color: var(--ir-400);">AX Infra</p>
+      <h2 id="titulo-patente">Da ideia à patente requerida</h2>
+      <p class="lead">
+        Um secador que troca o queimador a gás por ondas eletromagnéticas — com
+        capacidade produtiva equivalente e o produto preservado.
+      </p>
+    </div>
+
+    <div class="fatos">
+      <div class="fato fato--infra reveal">
+        <span class="rotulo-mini">Patente requerida — INPI</span>
+        <h3>Petição nº 870240090568</h3>
+        <p>Pedido de patente depositado em 23/10/2024 para o sistema de secagem AX Infra.</p>
+      </div>
+      <div class="fato fato--infra reveal" data-delay="1">
+        <span class="rotulo-mini">Princípio</span>
+        <h3>Ondas eletromagnéticas, não convecção</h3>
+        <p>O calor chega direto ao produto, sem precisar aquecer o ar — e sem chama.</p>
+      </div>
+      <div class="fato fato--infra reveal" data-delay="2">
+        <span class="rotulo-mini">Energia</span>
+        <h3>Projetado para energia solar</h3>
+        <p>Sistema inteligente de microcontroladores, sem emissão de CO₂ no processo.</p>
+      </div>
+    </div>
+
+    <div class="secao-acao reveal">
+      <a class="btn btn--infra" href="ax-infra.html">
+        Conhecer o AX Infra
+        <svg class="btn__seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="secao" aria-labelledby="titulo-pesquisa">
+  <div class="container">
+
+    <div class="secao-head reveal">
+      <p class="eyebrow">Pesquisa aplicada</p>
+      <h2 id="titulo-pesquisa">Ciência a serviço da linha de produção</h2>
+      <p class="lead">
+        A inovação que interessa ao pós-colheita é a que funciona na linha. Por isso a
+        Ax Pack aproxima a sua engenharia da pesquisa acadêmica.
+      </p>
+    </div>
+
+    <div class="parceiro reveal">
+      <div class="ph" style="--ar: 5 / 2;">
+        <span class="ph__dim">400 × 160 px</span>
+        <span class="ph__desc">Marca da instituição (com autorização de uso)</span>
+      </div>
+      <div>
+        <span class="rotulo-mini">Em desenvolvimento</span>
+        <h3>Pesquisa com a USP/ESALQ</h3>
+        <p>
+          Estudo em desenvolvimento com a USP/ESALQ, voltado ao pós-colheita da batata.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="secao secao--cinza" aria-labelledby="titulo-linhas">
+  <div class="container">
+
+    <div class="secao-head reveal">
+      <p class="eyebrow">Tecnologia em cada linha</p>
+      <h2 id="titulo-linhas">Inovação e desempenho aplicados aos equipamentos</h2>
+    </div>
+
+    <div class="suporte__grid suporte__grid--3">
+      <article class="card card-suporte reveal">
+        <span class="icone-box icone-box--infra"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 20c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg></span>
+        <span class="rotulo-mini" style="color: var(--ir-600);">Secagem</span>
+        <h3><a class="link-esticado" href="ax-infra.html">Infravermelho por ondas eletromagnéticas</a></h3>
+        <p>Temperatura uniforme, sem pontos úmidos, sem aquecer o produto e sem emissão de CO₂.</p>
+        <span class="link-seta" aria-hidden="true" style="color: var(--ir-600);">AX Infra <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </article>
+      <article class="card card-suporte reveal" data-delay="1">
+        <span class="icone-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M7 21h10M5 7h14"/><path d="m5 7-3 7a3 3 0 0 0 6 0L5 7ZM19 7l-3 7a3 3 0 0 0 6 0l-3-7Z"/></svg></span>
+        <span class="rotulo-mini">Pesagem</span>
+        <h3><a class="link-esticado" href="pesadoras.html">Pesagem por células de carga</a></h3>
+        <p>Precisão na dosagem e baixo sobrepeso, com alto alinhamento das correias e interface com máquinas automáticas.</p>
+        <span class="link-seta" aria-hidden="true">Pesadoras <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </article>
+      <article class="card card-suporte reveal" data-delay="2">
+        <span class="icone-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg></span>
+        <span class="rotulo-mini">Engenharia</span>
+        <h3><a class="link-esticado" href="projetos-sob-medida.html">Projetos sob medida</a></h3>
+        <p>A mesma engenharia aplicada ao que não está no catálogo, dimensionada para a sua operação.</p>
+        <span class="link-seta" aria-hidden="true">Projetos sob medida <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="secao cta-final" aria-labelledby="titulo-cta-final">
+  <div class="container cta-final__conteudo reveal">
+    <p class="eyebrow">Fale com a Ax Pack</p>
+    <h2 id="titulo-cta-final">Vamos dimensionar a solução para a sua operação?</h2>
+    <p>Conte a cultura, o volume e o espaço da sua linha. A engenharia da Ax Pack retorna com uma avaliação técnica.</p>
+    <div class="cta-final__acoes">
+      <a class="btn btn--primario btn--grande" href="contato.html">Fale com a Ax Pack <svg class="btn__seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn--whats btn--grande" href="https://wa.me/5516997821162?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Ax%20Pack." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.6-.1a13 13 0 0 1-5-4.4c-.4-.5-1-1.5-1-2.8s.7-2 .9-2.2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5-.3.3c-.1.1-.2.3 0 .5a8 8 0 0 0 3.6 3c.3.1.4.1.6-.1l.8-1c.2-.2.3-.2.5-.1l2 .9c.3.1.4.2.5.3 0 .1 0 .5-.2 1.1Z"/></svg> WhatsApp</a>
+    </div>
+  </div>
+</section>
 
 </main>
 
@@ -356,7 +393,7 @@
         <a href="assistencia-tecnica.html">Assistência técnica</a>
         <a href="blog.html">Blog</a>
         <a href="contato.html">Contato</a>
-        <a href="#orcamento">Solicitar orçamento</a>
+        <a href="contato.html#orcamento">Solicitar orçamento</a>
       </div>
     </div>
 
