@@ -662,49 +662,24 @@ select.campo__controle {
    BOTÃO FLUTUANTE DE WHATSAPP
    ========================================================================== */
 
+/* Simplificado em 07/10/2026: só o círculo com o ícone, sombra discreta e
+   hover por cor — sem o rótulo que abria no hover nem o brilho verde. É o
+   que um botão flutuante do Elementor reproduz direto. */
 .whatsapp-flutuante {
   position: fixed;
-  right: clamp(1rem, 2vw, 1.75rem);
-  bottom: clamp(1rem, 2vw, 1.75rem);
+  right: clamp(1rem, 2vw, 1.5rem);
+  bottom: clamp(1rem, 2vw, 1.5rem);
   z-index: var(--z-float);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-3);
-  padding: var(--sp-4);
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
   border-radius: var(--r-full);
-  background: #22C15E;
+  background: #25D366;
   color: var(--n-0);
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-semibold);
-  box-shadow: 0 10px 30px rgba(34, 193, 94, 0.42);
-  transition: transform var(--dur-base) var(--ease-out),
-              box-shadow var(--dur-base) var(--ease);
+  box-shadow: var(--sh-md);
+  transition: background-color var(--dur-base) var(--ease);
 }
-.whatsapp-flutuante svg { width: 28px; height: 28px; flex: none; }
-
-.whatsapp-flutuante__texto {
-  max-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  opacity: 0;
-  transition: max-width var(--dur-slow) var(--ease-out),
-              opacity var(--dur-base) var(--ease),
-              padding-right var(--dur-slow) var(--ease-out);
-}
+.whatsapp-flutuante svg { width: 28px; height: 28px; }
 .whatsapp-flutuante:hover,
-.whatsapp-flutuante:focus-visible {
-  color: var(--n-0);
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(34, 193, 94, 0.52);
-}
-.whatsapp-flutuante:hover .whatsapp-flutuante__texto,
-.whatsapp-flutuante:focus-visible .whatsapp-flutuante__texto {
-  max-width: 220px;
-  opacity: 1;
-  padding-right: var(--sp-3);
-}
-
-@media (max-width: 767px) {
-  /* no mobile mantém apenas o ícone, para não cobrir conteúdo */
-  .whatsapp-flutuante__texto { display: none; }
-}
+.whatsapp-flutuante:focus-visible { background: #1EBE5A; color: var(--n-0); }
